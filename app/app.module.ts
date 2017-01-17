@@ -6,7 +6,8 @@ import { AppComponent }  from './app.component';
 import { NavBarComponent }  from './core/nav-bar/nav-bar.component';
 import { AppRouting,AppRoutingComponents } from './app.routing';
 
-import { FirebaseConfig } from '../environments/dev.environment.js';
+//noinspection TypeScriptCheckImport
+import { FirebaseConfig } from 'firebaseConfig';
 import { AngularFireModule } from 'angularfire2';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 

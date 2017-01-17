@@ -6,4 +6,4 @@ exports.FirebaseConfig = {
     storageBucket: "groovytask-dev.appspot.com",
     messagingSenderId: "288386457025"
 };
-//# sourceMappingURL=dev.environment.js.map
+//# sourceMappingURL=environment.dev.js.map

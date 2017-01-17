@@ -14,7 +14,8 @@ var platform_browser_1 = require('@angular/platform-browser');
 var app_component_1 = require('./app.component');
 var nav_bar_component_1 = require('./core/nav-bar/nav-bar.component');
 var app_routing_1 = require('./app.routing');
-var dev_environment_js_1 = require('../environments/dev.environment.js');
+//noinspection TypeScriptCheckImport
+var firebaseConfig_1 = require('firebaseConfig');
 var angularfire2_1 = require('angularfire2');
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 var AppModule = (function () {
@@ -23,7 +24,7 @@ var AppModule = (function () {
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, app_routing_1.AppRouting,
-                angularfire2_1.AngularFireModule.initializeApp(dev_environment_js_1.FirebaseConfig),
+                angularfire2_1.AngularFireModule.initializeApp(firebaseConfig_1.FirebaseConfig),
                 ng_bootstrap_1.NgbModule.forRoot()
             ],
             declarations: [app_component_1.AppComponent, nav_bar_component_1.NavBarComponent, app_routing_1.AppRoutingComponents],

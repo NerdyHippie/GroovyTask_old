@@ -6,14 +6,15 @@
   System.config({
     paths: {
       // paths serve as alias
-      'npm:': 'node_modules/'
+      'npm:': 'node_modules/',
+      'env:': 'environments/'
     },
     // map tells the System loader where to look for things
     map: {
       // our app is within the app folder
       app: 'app',
-	    ENV: 'environments/env.conditions.js',
 
+	    
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
       '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
@@ -27,6 +28,9 @@
       // other libraries
       'rxjs':                         'npm:rxjs',
       'angular-in-memory-web-api':    'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+	
+	    ,ENV:                           'env:env.conditions.js'
+	    ,'firebaseConfig':              'env:environment.#{ENV|environment}.js'
 	    
 	    ,'firebase':                    'npm:firebase/'
       ,'angularfire2':                'npm:angularfire2/bundles/angularfire2.umd.js'
