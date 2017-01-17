@@ -12,6 +12,7 @@
     map: {
       // our app is within the app folder
       app: 'app',
+	    ENV: 'environments/env.conditions.js',
 
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
@@ -24,11 +25,13 @@
       '@angular/forms': 'npm:@angular/forms/bundles/forms.umd.js',
 
       // other libraries
-      'rxjs':                      'npm:rxjs',
-      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+      'rxjs':                         'npm:rxjs',
+      'angular-in-memory-web-api':    'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
 	    
-	      ,'angularfire2': 'npm:angularfire2/bundles/angularfire2.umd.js'
-	      ,'@ng-bootstrap/ng-bootstrap': 'npm:ng-bootstrap/bundles/ng-bootstrap.umd.js'
+	    ,'firebase':                    'npm:firebase/'
+      ,'angularfire2':                'npm:angularfire2/bundles/angularfire2.umd.js'
+      ,'moment':                      'npm:moment/moment.js'
+      ,'@ng-bootstrap/ng-bootstrap':  'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -37,6 +40,13 @@
         defaultExtension: 'js'
       },
       rxjs: {
+        defaultExtension: 'js'
+      },
+      'firebase': {
+        defaultExtension: 'js'
+	      ,main: 'firebase-browser.js'
+      },
+      angularfire2: {
         defaultExtension: 'js'
       }
     }

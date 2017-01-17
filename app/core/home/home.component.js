@@ -9,16 +9,22 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var angularfire2_1 = require('angularfire2');
 var HomeComponent = (function () {
-    function HomeComponent() {
+    function HomeComponent(af) {
+        this.af = af;
     }
-    HomeComponent.prototype.ngOnInit = function () { };
+    HomeComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.ref = this.af.database.object('/');
+        this.ref.subscribe(function (data) { return _this.info = data; });
+    };
     HomeComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: 'home.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [angularfire2_1.AngularFire])
     ], HomeComponent);
     return HomeComponent;
 }());
