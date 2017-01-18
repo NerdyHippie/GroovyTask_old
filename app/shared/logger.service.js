@@ -9,20 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent() {
-        this.name = 'GroovyTask';
+var Logger = (function () {
+    function Logger() {
+        this.logs = []; // capture logs for testing
     }
-    AppComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'groovy-task-app',
-            templateUrl: './app.component.html',
-            styleUrls: ['./app.component.css']
-        }), 
+    Logger.prototype.log = function (message) {
+        this.logs.push(message);
+        console.info(message);
+    };
+    Logger = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], Logger);
+    return Logger;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.Logger = Logger;
+//# sourceMappingURL=logger.service.js.map

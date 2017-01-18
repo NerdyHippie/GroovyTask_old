@@ -18,6 +18,8 @@ var admin_module_1 = require('./admin/admin.module');
 var shared_module_1 = require('./shared/shared.module');
 var app_component_1 = require('./app.component');
 var nav_bar_component_1 = require('./core/nav-bar/nav-bar.component');
+var user_service_1 = require('./shared/user.service');
+var logger_service_1 = require('./shared/logger.service');
 //noinspection TypeScriptCheckImport
 var firebaseConfig_1 = require('firebaseConfig');
 var AppModule = (function () {
@@ -30,6 +32,7 @@ var AppModule = (function () {
                 app_routing_1.AppRouting, shared_module_1.SharedModule, admin_module_1.AdminModule
             ],
             declarations: [app_component_1.AppComponent, nav_bar_component_1.NavBarComponent, app_routing_1.AppRoutingComponents],
+            providers: [user_service_1.UserService, logger_service_1.Logger],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

@@ -13,13 +13,17 @@ var angularfire2_1 = require('angularfire2');
 var UserService = (function () {
     function UserService(af) {
         this.af = af;
-        console.log('construcing userService');
+        this.apples = 'Oranges';
         this.initialize();
     }
     UserService.prototype.initialize = function () {
-        this.userListRef = this.af.database.list('/users');
+        this.userList$ = this.af.database.list('/users');
+    };
+    UserService.prototype.getTest = function (input) {
+        return "Test " + input;
     };
     UserService.prototype.getUser = function (userId) {
+        //console.log('get user',userId);
         var path = '/users/' + userId;
         return this.af.database.object(path);
     };

@@ -8,44 +8,47 @@ import { UserService } from '../../shared/user.service';
 	selector: 'user-editor',
 	templateUrl: 'user-editor.component.html'
 })
-export class UserEditorComponent implements OnInit {
-  editUser: User = {firstName:'',lastName:'',username:''};
+export class UserEditorComponent implements OnInit,OnDestroy {
+  user: User;
 	id: String;
-	userRef: any;
-	sub: any;
+	user$: any;
+	routeParams$: any;
 	
-	constructor(private route:ActivatedRoute,private us:UserService) { }
+	constructor(private usrSvc:UserService,private route:ActivatedRoute) {	}
 	
-  ngOnInit() {
-		this.sub = this.route.params.subscribe(this.loadUser);
+	ngOnInit() {
+		this.routeParams$ = this.route.params.subscribe(params => this.loadUser(params));
 	}
 	
 	loadUser(params:any) {
-		console.log('loadUser',params);
+		console.log('in loadUser',params);
 		if (params['id']) {
-			console.log('id exists, load data');
 			this.id = params['id'];
-			this.userRef = this.us.getUser(this.id);
-			this.userRef.subscribe(this.popUser);
+			this.user$ = this.usrSvc.getUser(this.id);
+			this.user$.subscribe(this.popUser.bind(this));
+		} else {
+			this.user = {firstName:'',lastName:'',username:''};
 		}
-		
-		
 	}
 	
 	popUser(usrData:any) {
-		console.log('popusr',usrData);
-		this.editUser = usrData;
+		this.user = usrData;
+	}
+	
+	saveUser() {
+		console.log('save the user!');
 	}
 	
 	ngOnDestroy() {
-		if (this.sub) {
-			console.log('unsub sub');
-			this.sub.unsubscribe();
+		console.log('destroy!');
+		if (this.routeParams$) {
+			console.log('unsub routeParams$ in editor');
+			this.routeParams$.unsubscribe();
 		}
-		if (this.userRef) {
-			console.log('unsub usrRef');
-			this.userRef.unsubscribe();
-		}
+		/*if (this.user$) {
+			console.log('unsub usrRef',this.user$);
+			this.user$.unsubscribe();
+		}*/
 	}
     
 }

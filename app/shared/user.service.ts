@@ -1,24 +1,27 @@
 import { Injectable } from "@angular/core";
-
 import { AngularFire,FirebaseListObservable } from 'angularfire2';
-
 import { User } from './user.model';
 
 @Injectable()
 
 export class UserService {
-	userListRef: FirebaseListObservable<any>;
+	userList$: FirebaseListObservable<any>;
+	apples: String = 'Oranges';
 	
 	constructor(private af: AngularFire) {
-		console.log('construcing userService');
 		this.initialize();
 	}
 	
-	initialize():void {
-		this.userListRef = this.af.database.list('/users');
+	private initialize():void {
+		this.userList$ = this.af.database.list('/users');
+	}
+	
+	getTest(input:String):String {
+		return "Test " + input;
 	}
 	
 	getUser(userId:String):any {
+		//console.log('get user',userId);
 		let path = '/users/'+userId;
 		return this.af.database.object(path);
 	}

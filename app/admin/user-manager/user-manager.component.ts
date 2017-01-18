@@ -9,16 +9,16 @@ import { UserService } from '../../shared/user.service';
 })
 export class UserManagerComponent implements OnInit {
 		users: Array<User>;
-		userSub: any;
+		users$: any;
 		
     constructor(private us:UserService) { }
 
     ngOnInit() {
-    	this.userSub = this.us.userListRef.subscribe(data => this.users = data);
+    	this.users$ = this.us.userList$.subscribe(data => this.users = data);
 		}
 		
 		ngOnDestroy() {
-    	this.userSub.unsubscribe();
+    	this.users$.unsubscribe();
 		}
     
 }

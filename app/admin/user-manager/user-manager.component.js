@@ -16,10 +16,10 @@ var UserManagerComponent = (function () {
     }
     UserManagerComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userSub = this.us.userListRef.subscribe(function (data) { return _this.users = data; });
+        this.users$ = this.us.userList$.subscribe(function (data) { return _this.users = data; });
     };
     UserManagerComponent.prototype.ngOnDestroy = function () {
-        this.userSub.unsubscribe();
+        this.users$.unsubscribe();
     };
     UserManagerComponent = __decorate([
         core_1.Component({

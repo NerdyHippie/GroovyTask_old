@@ -13,6 +13,10 @@ import { SharedModule } from './shared/shared.module';
 import { AppComponent }  from './app.component';
 import { NavBarComponent }  from './core/nav-bar/nav-bar.component';
 
+
+import { UserService } from './shared/user.service';
+import { Logger } from './shared/logger.service';
+
 //noinspection TypeScriptCheckImport
 import { FirebaseConfig } from 'firebaseConfig';
 
@@ -22,6 +26,8 @@ import { FirebaseConfig } from 'firebaseConfig';
 		, AppRouting, SharedModule, AdminModule
 	],
   declarations: [ AppComponent, NavBarComponent, AppRoutingComponents ],
+	
+	providers: [ UserService,Logger ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

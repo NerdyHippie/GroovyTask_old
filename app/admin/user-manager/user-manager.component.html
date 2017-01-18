@@ -1,7 +1,18 @@
 <h2>User Manager</h2>
 
-<ul>
-	<li *ngFor="let user of users">
-		<a routerLink="/admin/users/{{user.$key}}">{{user.firstName}} {{user.lastName}}</a>
-	</li>
-</ul>
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<ul>
+				<li><a routerLink="/admin/users/create"><i class="fa fa-plus"></i> Create New User</a></li>
+				<li *ngFor="let user of users">
+					<a routerLink="/admin/users/{{user.$key}}">{{user.firstName}} {{user.lastName}}</a> <a routerLink="/admin/users/edit/{{user.$key}}"><i class="fa fa-pencil" title="Edit"></i></a>
+				</li>
+			</ul>
+		</div>
+		<div class="col">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+</div>
+
