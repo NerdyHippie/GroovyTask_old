@@ -9,27 +9,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
 var user_service_1 = require('../../shared/user.service');
-var UserManagerComponent = (function () {
-    function UserManagerComponent(us) {
+var UserEditorComponent = (function () {
+    function UserEditorComponent(route, us) {
+        this.route = route;
         this.us = us;
     }
-    UserManagerComponent.prototype.ngOnInit = function () {
+    UserEditorComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userSub = this.us.userRef.subscribe(function (data) { return _this.users = data; });
+        this.sub = this.route.params.subscribe(function (params) { return _this.id = params['id']; });
     };
-    UserManagerComponent.prototype.ngOnDestroy = function () {
-        this.userSub.unsubscribe();
+    UserEditorComponent.prototype.ngOnDestroy = function () {
+        this.sub.unsubscribe();
     };
-    UserManagerComponent = __decorate([
+    UserEditorComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'user-manager',
-            templateUrl: 'user-manager.component.html'
+            selector: 'user-editor',
+            templateUrl: 'user-editor.component.html'
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService])
-    ], UserManagerComponent);
-    return UserManagerComponent;
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, user_service_1.UserService])
+    ], UserEditorComponent);
+    return UserEditorComponent;
 }());
-exports.UserManagerComponent = UserManagerComponent;
-//# sourceMappingURL=user-manager.component.js.map
+exports.UserEditorComponent = UserEditorComponent;
+//# sourceMappingURL=user-editor.component.js.map

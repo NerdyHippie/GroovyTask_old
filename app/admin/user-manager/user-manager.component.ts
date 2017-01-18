@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from '../../shared/user.model';
 import { UserService } from '../../shared/user.service';
 
@@ -9,12 +9,16 @@ import { UserService } from '../../shared/user.service';
 })
 export class UserManagerComponent implements OnInit {
 		users: Array<User>;
+		userSub: any;
 		
     constructor(private us:UserService) { }
 
     ngOnInit() {
-    	this.us.userRef.subscribe(data => this.users = data);
-   		
+    	this.userSub = this.us.userRef.subscribe(data => this.users = data);
+		}
+		
+		ngOnDestroy() {
+    	this.userSub.unsubscribe();
 		}
     
 }

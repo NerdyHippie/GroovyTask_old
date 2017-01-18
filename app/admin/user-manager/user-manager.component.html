@@ -2,10 +2,6 @@
 
 <ul>
 	<li *ngFor="let user of users">
-		{{user.firstName}} {{user.lastName}}
+		<a routerLink="/admin/users/{{user.$key}}">{{user.firstName}} {{user.lastName}}</a>
 	</li>
 </ul>
-
-<hr>
-
-<pre>{{users | json}}</pre>
