@@ -13,10 +13,15 @@ var angularfire2_1 = require('angularfire2');
 var UserService = (function () {
     function UserService(af) {
         this.af = af;
+        console.log('construcing userService');
         this.initialize();
     }
     UserService.prototype.initialize = function () {
-        this.userRef = this.af.database.list('/users');
+        this.userListRef = this.af.database.list('/users');
+    };
+    UserService.prototype.getUser = function (userId) {
+        var path = '/users/' + userId;
+        return this.af.database.object(path);
     };
     UserService = __decorate([
         core_1.Injectable(), 

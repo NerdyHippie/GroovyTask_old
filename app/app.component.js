@@ -12,7 +12,7 @@ var core_1 = require('@angular/core');
 var user_service_1 = require('./shared/user.service');
 var AppComponent = (function () {
     function AppComponent() {
-        this.name = 'Angular';
+        this.name = 'GroovyTask';
     }
     AppComponent = __decorate([
         core_1.Component({

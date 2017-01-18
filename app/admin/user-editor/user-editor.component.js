@@ -15,13 +15,33 @@ var UserEditorComponent = (function () {
     function UserEditorComponent(route, us) {
         this.route = route;
         this.us = us;
+        this.editUser = { firstName: '', lastName: '', username: '' };
     }
     UserEditorComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.sub = this.route.params.subscribe(function (params) { return _this.id = params['id']; });
+        this.sub = this.route.params.subscribe(this.loadUser);
+    };
+    UserEditorComponent.prototype.loadUser = function (params) {
+        console.log('loadUser', params);
+        if (params['id']) {
+            console.log('id exists, load data');
+            this.id = params['id'];
+            this.userRef = this.us.getUser(this.id);
+            this.userRef.subscribe(this.popUser);
+        }
+    };
+    UserEditorComponent.prototype.popUser = function (usrData) {
+        console.log('popusr', usrData);
+        this.editUser = usrData;
     };
     UserEditorComponent.prototype.ngOnDestroy = function () {
-        this.sub.unsubscribe();
+        if (this.sub) {
+            console.log('unsub sub');
+            this.sub.unsubscribe();
+        }
+        if (this.userRef) {
+            console.log('unsub usrRef');
+            this.userRef.unsubscribe();
+        }
     };
     UserEditorComponent = __decorate([
         core_1.Component({

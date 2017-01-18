@@ -7,13 +7,19 @@ import { User } from './user.model';
 @Injectable()
 
 export class UserService {
-	userRef: FirebaseListObservable<any>;
+	userListRef: FirebaseListObservable<any>;
 	
 	constructor(private af: AngularFire) {
+		console.log('construcing userService');
 		this.initialize();
 	}
 	
 	initialize():void {
-		this.userRef = this.af.database.list('/users');
+		this.userListRef = this.af.database.list('/users');
+	}
+	
+	getUser(userId:String):any {
+		let path = '/users/'+userId;
+		return this.af.database.object(path);
 	}
 }

@@ -14,7 +14,7 @@ export class UserManagerComponent implements OnInit {
     constructor(private us:UserService) { }
 
     ngOnInit() {
-    	this.userSub = this.us.userRef.subscribe(data => this.users = data);
+    	this.userSub = this.us.userListRef.subscribe(data => this.users = data);
 		}
 		
 		ngOnDestroy() {

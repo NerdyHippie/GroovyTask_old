@@ -9,5 +9,5 @@ import { UserService } from './shared/user.service';
 	,providers: [ UserService ]
 })
 export class AppComponent  {
-	name = 'Angular';
+	name = 'GroovyTask';
 }

@@ -16,7 +16,7 @@ var UserManagerComponent = (function () {
     }
     UserManagerComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.userSub = this.us.userRef.subscribe(function (data) { return _this.users = data; });
+        this.userSub = this.us.userListRef.subscribe(function (data) { return _this.users = data; });
     };
     UserManagerComponent.prototype.ngOnDestroy = function () {
         this.userSub.unsubscribe();
