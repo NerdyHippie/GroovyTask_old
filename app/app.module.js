@@ -11,21 +11,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var platform_browser_1 = require('@angular/platform-browser');
-var app_component_1 = require('./app.component');
-var nav_bar_component_1 = require('./core/nav-bar/nav-bar.component');
-var app_routing_1 = require('./app.routing');
-//noinspection TypeScriptCheckImport
-var firebaseConfig_1 = require('firebaseConfig');
 var angularfire2_1 = require('angularfire2');
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
+var app_routing_1 = require('./app.routing');
+var admin_module_1 = require('./admin/admin.module');
+var shared_module_1 = require('./shared/shared.module');
+var app_component_1 = require('./app.component');
+var nav_bar_component_1 = require('./core/nav-bar/nav-bar.component');
+//noinspection TypeScriptCheckImport
+var firebaseConfig_1 = require('firebaseConfig');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, app_routing_1.AppRouting,
-                angularfire2_1.AngularFireModule.initializeApp(firebaseConfig_1.FirebaseConfig),
-                ng_bootstrap_1.NgbModule.forRoot()
+            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule,
+                angularfire2_1.AngularFireModule.initializeApp(firebaseConfig_1.FirebaseConfig), ng_bootstrap_1.NgbModule.forRoot(),
+                app_routing_1.AppRouting, shared_module_1.SharedModule, admin_module_1.AdminModule
             ],
             declarations: [app_component_1.AppComponent, nav_bar_component_1.NavBarComponent, app_routing_1.AppRoutingComponents],
             bootstrap: [app_component_1.AppComponent]

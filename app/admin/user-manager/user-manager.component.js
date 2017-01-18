@@ -9,19 +9,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AdminComponent = (function () {
-    function AdminComponent() {
+var user_service_1 = require('../../shared/user.service');
+var UserManagerComponent = (function () {
+    function UserManagerComponent(us) {
+        this.us = us;
     }
-    AdminComponent.prototype.ngOnInit = function () { };
-    AdminComponent = __decorate([
+    UserManagerComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.us.userRef.subscribe(function (data) { return _this.users = data; });
+    };
+    UserManagerComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            //template: `<router-outlet></router-outlet>`
-            templateUrl: 'admin.component.html'
+            selector: 'user-manager',
+            templateUrl: 'user-manager.component.html'
         }), 
-        __metadata('design:paramtypes', [])
-    ], AdminComponent);
-    return AdminComponent;
+        __metadata('design:paramtypes', [user_service_1.UserService])
+    ], UserManagerComponent);
+    return UserManagerComponent;
 }());
-exports.AdminComponent = AdminComponent;
-//# sourceMappingURL=admin.component.js.map
+exports.UserManagerComponent = UserManagerComponent;
+//# sourceMappingURL=user-manager.component.js.map

@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     moduleId: module.id,
-    //template: `<router-outlet></router-outlet>`
-		templateUrl: 'admin.component.html'
+    templateUrl: 'admin-home.component.html'
 })
-export class AdminComponent implements OnInit {
+export class AdminHomeComponent implements OnInit {
     constructor() { }
 
     ngOnInit() { }

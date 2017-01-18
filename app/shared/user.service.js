@@ -8,20 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var AdminComponent = (function () {
-    function AdminComponent() {
+var core_1 = require("@angular/core");
+var angularfire2_1 = require('angularfire2');
+var UserService = (function () {
+    function UserService(af) {
+        this.af = af;
+        this.initialize();
     }
-    AdminComponent.prototype.ngOnInit = function () { };
-    AdminComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            //template: `<router-outlet></router-outlet>`
-            templateUrl: 'admin.component.html'
-        }), 
-        __metadata('design:paramtypes', [])
-    ], AdminComponent);
-    return AdminComponent;
+    UserService.prototype.initialize = function () {
+        this.userRef = this.af.database.list('/users');
+    };
+    UserService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [angularfire2_1.AngularFire])
+    ], UserService);
+    return UserService;
 }());
-exports.AdminComponent = AdminComponent;
-//# sourceMappingURL=admin.component.js.map
+exports.UserService = UserService;
+//# sourceMappingURL=user.service.js.map

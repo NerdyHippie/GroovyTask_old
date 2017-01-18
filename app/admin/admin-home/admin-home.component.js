@@ -9,19 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AdminComponent = (function () {
-    function AdminComponent() {
+var AdminHomeComponent = (function () {
+    function AdminHomeComponent() {
     }
-    AdminComponent.prototype.ngOnInit = function () { };
-    AdminComponent = __decorate([
+    AdminHomeComponent.prototype.ngOnInit = function () { };
+    AdminHomeComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            //template: `<router-outlet></router-outlet>`
-            templateUrl: 'admin.component.html'
+            templateUrl: 'admin-home.component.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], AdminComponent);
-    return AdminComponent;
+    ], AdminHomeComponent);
+    return AdminHomeComponent;
 }());
-exports.AdminComponent = AdminComponent;
-//# sourceMappingURL=admin.component.js.map
+exports.AdminHomeComponent = AdminHomeComponent;
+//# sourceMappingURL=admin-home.component.js.map

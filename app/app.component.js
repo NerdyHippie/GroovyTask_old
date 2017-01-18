@@ -9,6 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var user_service_1 = require('./shared/user.service');
 var AppComponent = (function () {
     function AppComponent() {
         this.name = 'Angular';
@@ -18,7 +19,8 @@ var AppComponent = (function () {
             moduleId: module.id,
             selector: 'groovy-task-app',
             templateUrl: './app.component.html',
-            styleUrls: ['./app.component.css']
+            styleUrls: ['./app.component.css'],
+            providers: [user_service_1.UserService]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);
