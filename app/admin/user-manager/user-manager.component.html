@@ -6,7 +6,10 @@
 			<ul>
 				<li><a routerLink="/admin/users/create"><i class="fa fa-plus"></i> Create New User</a></li>
 				<li *ngFor="let user of users">
-					<a routerLink="/admin/users/{{user.$key}}">{{user.firstName}} {{user.lastName}}</a> <a routerLink="/admin/users/edit/{{user.$key}}"><i class="fa fa-pencil" title="Edit"></i></a>
+					<a routerLink="/admin/users/{{user.$key}}">
+						{{user.firstName}} {{user.lastName}} <span *ngIf="user.admin">[ADMIN]</span>
+					</a>
+					<a routerLink="/admin/users/edit/{{user.$key}}"><i class="fa fa-pencil" title="Edit"></i></a>
 				</li>
 			</ul>
 		</div>

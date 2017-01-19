@@ -12,26 +12,36 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var user_service_1 = require('../../shared/user.service');
 var UserDetailComponent = (function () {
-    function UserDetailComponent(usrSvc, route) {
+    function UserDetailComponent(usrSvc, route, router) {
         this.usrSvc = usrSvc;
         this.route = route;
-        console.log('constructor', usrSvc); // defined here
-        this.one = usrSvc.getTest('this is one'); // works correctly
+        this.router = router;
     }
     UserDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
-        console.log('ngOnInit', this.usrSvc); // also defined here
-        this.two = this.usrSvc.getTest('this is two'); // also works correctly
-        this.routeParams$ = this.route.params.subscribe(function (value) { return _this.loadUser(value); });
-        //this.loadUser({});
+        // Pass the routeParams data over to loadUser()
+        this.routeParams$ = this.route.params.subscribe(function (params) { return _this.loadUser(params); });
     };
     UserDetailComponent.prototype.loadUser = function (params) {
-        console.log('loadUser', params); // undefined!!
-        this.three = this.usrSvc.getTest('this is three'); // BOOM
+        this.user = undefined; // Start out setting this.user to undefined so that the directive content disappears
+        if (params['id'] && params['id'] != 'create') {
+            this.id = params['id'];
+            this.user$ = this.usrSvc.getUser(this.id); // Get the FirebaseObjectObservable reference here
+            this.user$.subscribe(this.popUser.bind(this)); // Pass the user data to popUser.  Add .bind(this) to refer to the proper function scope
+        }
+        else {
+            // TODO: Figure out the proper way to do this - I think you're suppose to implement a Class that implements the Interface
+            this.user = { firstName: '', lastName: '', username: '' }; // Make a new user
+        }
+    };
+    UserDetailComponent.prototype.editUser = function () {
+        this.router.navigate(['/admin/users/edit/' + this.user.$key]);
+    };
+    UserDetailComponent.prototype.popUser = function (usrData) {
+        this.user = usrData;
     };
     UserDetailComponent.prototype.ngOnDestroy = function () {
         if (this.routeParams$) {
-            console.log('unsub routeParams$ in detail');
             this.routeParams$.unsubscribe();
         }
     };
@@ -41,7 +51,7 @@ var UserDetailComponent = (function () {
             selector: 'user-detail',
             templateUrl: 'user-detail.component.html'
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute])
+        __metadata('design:paramtypes', [user_service_1.UserService, router_1.ActivatedRoute, router_1.Router])
     ], UserDetailComponent);
     return UserDetailComponent;
 }());

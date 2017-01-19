@@ -15,8 +15,11 @@ var UserManagerComponent = (function () {
         this.us = us;
     }
     UserManagerComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.users$ = this.us.userList$.subscribe(function (data) { return _this.users = data; });
+        this.users$ = this.us.userList$.subscribe(this.bindUsers.bind(this));
+    };
+    UserManagerComponent.prototype.bindUsers = function (data) {
+        console.log('binding users', data);
+        this.users = data;
     };
     UserManagerComponent.prototype.ngOnDestroy = function () {
         this.users$.unsubscribe();

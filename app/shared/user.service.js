@@ -22,6 +22,14 @@ var UserService = (function () {
     UserService.prototype.getTest = function (input) {
         return "Test " + input;
     };
+    UserService.prototype.cleanObj = function (input) {
+        var invalidProps = ['$key', '$exists'];
+        for (var _i = 0, invalidProps_1 = invalidProps; _i < invalidProps_1.length; _i++) {
+            var prop = invalidProps_1[_i];
+            delete input[prop];
+        }
+        return input;
+    };
     UserService.prototype.getUser = function (userId) {
         //console.log('get user',userId);
         var path = '/users/' + userId;

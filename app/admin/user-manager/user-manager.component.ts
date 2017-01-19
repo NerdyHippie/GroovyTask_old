@@ -14,7 +14,12 @@ export class UserManagerComponent implements OnInit {
     constructor(private us:UserService) { }
 
     ngOnInit() {
-    	this.users$ = this.us.userList$.subscribe(data => this.users = data);
+    	this.users$ = this.us.userList$.subscribe(this.bindUsers.bind(this));
+		}
+		
+		bindUsers(data:any) {
+    	console.log('binding users',data);
+			this.users = data
 		}
 		
 		ngOnDestroy() {

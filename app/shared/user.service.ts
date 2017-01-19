@@ -20,6 +20,14 @@ export class UserService {
 		return "Test " + input;
 	}
 	
+	cleanObj(input:Object) {
+		let invalidProps = ['$key','$exists'];
+		for (let prop of invalidProps) {
+			delete input[prop];
+		}
+		return input;
+	}
+	
 	getUser(userId:String):any {
 		//console.log('get user',userId);
 		let path = '/users/'+userId;
