@@ -11,8 +11,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var NavBarComponent = (function () {
     function NavBarComponent() {
+        this.isCollapsed = true;
     }
     NavBarComponent.prototype.ngOnInit = function () { };
+    NavBarComponent.prototype.toggleCollapse = function () {
+        console.log('toggle');
+        this.isCollapsed = !this.isCollapsed;
+    };
     NavBarComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
