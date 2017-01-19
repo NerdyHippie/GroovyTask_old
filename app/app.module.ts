@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AngularFireModule } from 'angularfire2';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {CalendarModule} from 'primeng/primeng';
 
 import { AppRouting,AppRoutingComponents } from './app.routing';
 
@@ -23,6 +24,7 @@ import { FirebaseConfig } from 'firebaseConfig';
 @NgModule({
   imports:      [ BrowserModule, FormsModule,
 		AngularFireModule.initializeApp(FirebaseConfig), NgbModule.forRoot()
+		,CalendarModule
 		, AppRouting, SharedModule, AdminModule
 	],
   declarations: [ AppComponent, NavBarComponent, AppRoutingComponents ],

@@ -1,6 +1,6 @@
 <h3>Home</h3>
-<ul>
-	<li><a routerLink="/admin/users">Manage Users</a></li>
+<ul class="nav nav-pills">
+	<li class="nav-item" *ngFor="let route of routeInfo"><a class="nav-link" routerLinkActive="active" routerLink="{{route.path}}">{{route.name}}</a></li>
 </ul>
 <router-outlet></router-outlet>
 

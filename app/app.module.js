@@ -13,6 +13,7 @@ var forms_1 = require('@angular/forms');
 var platform_browser_1 = require('@angular/platform-browser');
 var angularfire2_1 = require('angularfire2');
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
+var primeng_1 = require('primeng/primeng');
 var app_routing_1 = require('./app.routing');
 var admin_module_1 = require('./admin/admin.module');
 var shared_module_1 = require('./shared/shared.module');
@@ -29,6 +30,7 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, forms_1.FormsModule,
                 angularfire2_1.AngularFireModule.initializeApp(firebaseConfig_1.FirebaseConfig), ng_bootstrap_1.NgbModule.forRoot(),
+                primeng_1.CalendarModule,
                 app_routing_1.AppRouting, shared_module_1.SharedModule, admin_module_1.AdminModule
             ],
             declarations: [app_component_1.AppComponent, nav_bar_component_1.NavBarComponent, app_routing_1.AppRoutingComponents],

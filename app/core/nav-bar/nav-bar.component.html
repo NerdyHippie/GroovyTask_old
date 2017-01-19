@@ -6,11 +6,11 @@
 	
 	<div class="collapse navbar-collapse" id="navbarsExampleDefault" [ngbCollapse]="isCollapsed">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active">
-				<a class="nav-link" routerLink="/">Home <span class="sr-only">(current)</span></a>
+			<li class="nav-item" routerLink="/calendar" routerLinkActive="active">
+				<a class="nav-link">Calendar</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" routerLink="/admin">Admin</a>
+			<li class="nav-item" routerLink="/admin" routerLinkActive="active">
+				<a class="nav-link">Admin</a>
 			</li>
 			<!--<li class="nav-item">
 				<a class="nav-link disabled" href="#">Disabled</a>

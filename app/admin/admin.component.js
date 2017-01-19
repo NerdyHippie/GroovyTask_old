@@ -9,10 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+//import { ActivatedRoute } from '@angular/router';
 var AdminComponent = (function () {
     function AdminComponent() {
     }
-    AdminComponent.prototype.ngOnInit = function () { };
+    AdminComponent.prototype.ngOnInit = function () {
+        this.routeInfo = [{
+                name: 'Manage Users',
+                path: '/admin/users'
+            }, {
+                name: 'Manage Jobs',
+                path: '/admin/jobs'
+            }];
+    };
     AdminComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

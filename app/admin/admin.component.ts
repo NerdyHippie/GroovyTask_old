@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+//import { ActivatedRoute } from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -6,8 +7,19 @@ import { Component, OnInit } from '@angular/core';
 		templateUrl: 'admin.component.html'
 })
 export class AdminComponent implements OnInit {
-    constructor() { }
+		routeInfo: Array<{}>;
+		
+    constructor() {}
 
-    ngOnInit() { }
+    ngOnInit() {
+    	this.routeInfo = [{
+    		name: 'Manage Users'
+				,path: '/admin/users'
+			},{
+    		name: 'Manage Jobs'
+				,path: '/admin/jobs'
+			}];
+	
+		}
     
 }

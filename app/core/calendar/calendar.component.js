@@ -9,18 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AdminHomeComponent = (function () {
-    function AdminHomeComponent() {
+var CalendarComponent = (function () {
+    function CalendarComponent() {
     }
-    AdminHomeComponent.prototype.ngOnInit = function () { };
-    AdminHomeComponent = __decorate([
+    CalendarComponent.prototype.ngOnInit = function () { };
+    CalendarComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: 'admin-home.component.html'
+            selector: 'calendar',
+            templateUrl: 'calendar.component.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], AdminHomeComponent);
-    return AdminHomeComponent;
+    ], CalendarComponent);
+    return CalendarComponent;
 }());
-exports.AdminHomeComponent = AdminHomeComponent;
-//# sourceMappingURL=admin-home.component.js.map
+exports.CalendarComponent = CalendarComponent;
+//# sourceMappingURL=calendar.component.js.map

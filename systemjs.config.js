@@ -35,7 +35,11 @@
 	    ,'firebase':                    'npm:firebase/'
       ,'angularfire2':                'npm:angularfire2/bundles/angularfire2.umd.js'
       ,'moment':                      'npm:moment/moment.js'
+      ,'jquery':                      'npm:jquery/dist/jquery.js'
+      ,'fullcalendar':                'npm:fullcalendar/dist/fullcalendar.js'
       ,'@ng-bootstrap/ng-bootstrap':  'npm:@ng-bootstrap/ng-bootstrap/bundles/ng-bootstrap.js'
+      ,'angular2-fullcalendar':       'npm:angular2-fullcalendar/src/calendar/calendar.js'
+	    ,'primeng':                     'npm:primeng'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -50,9 +54,9 @@
         defaultExtension: 'js'
 	      ,main: 'firebase-browser.js'
       },
-      angularfire2: {
-        defaultExtension: 'js'
-      }
+	    primeng: {
+		    defaultExtension: 'js'
+	    }
     }
   });
 })(this);
