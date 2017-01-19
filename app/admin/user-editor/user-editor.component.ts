@@ -1,7 +1,7 @@
 import { Component, OnInit,OnDestroy } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
-import { UserService } from '../../shared/user.service';
+import { UserService } from '../../shared/_services/user.service';
 
 @Component({
 	moduleId: module.id,

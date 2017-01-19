@@ -15,9 +15,24 @@ var HomeComponent = (function () {
         this.af = af;
     }
     HomeComponent.prototype.ngOnInit = function () {
+        /*this.ref = this.af.database.object('/');
+        this.ref.subscribe(data => this.info = data);*/
         var _this = this;
-        this.ref = this.af.database.object('/');
-        this.ref.subscribe(function (data) { return _this.info = data; });
+        this.af.auth.subscribe(function (data) { return _this.testFunc(data); });
+    };
+    HomeComponent.prototype.testFunc = function (data) {
+        console.log('authState data', data);
+    };
+    HomeComponent.prototype.login = function () {
+        console.log('login');
+        this.af.auth.login({ email: 'jorvis@nerdyhippie.com', password: 'test123' }, {
+            provider: angularfire2_1.AuthProviders.Password,
+            method: angularfire2_1.AuthMethods.Password,
+        });
+        console.log('login 2');
+    };
+    HomeComponent.prototype.logout = function () {
+        this.af.auth.logout();
     };
     HomeComponent = __decorate([
         core_1.Component({

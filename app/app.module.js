@@ -8,33 +8,57 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+// Vendor modules
 var core_1 = require('@angular/core');
 var forms_1 = require('@angular/forms');
 var platform_browser_1 = require('@angular/platform-browser');
+var http_1 = require('@angular/http');
 var angularfire2_1 = require('angularfire2');
 var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 var primeng_1 = require('primeng/primeng');
+// App Routing
 var app_routing_1 = require('./app.routing');
+// GroovyTask Modules
 var admin_module_1 = require('./admin/admin.module');
 var shared_module_1 = require('./shared/shared.module');
+// Components
 var app_component_1 = require('./app.component');
 var nav_bar_component_1 = require('./core/nav-bar/nav-bar.component');
-var user_service_1 = require('./shared/user.service');
-var logger_service_1 = require('./shared/logger.service');
+// Global Services
+var index_1 = require('./shared/_services/index');
+// Environment Config
 //noinspection TypeScriptCheckImport
 var firebaseConfig_1 = require('firebaseConfig');
+// TODO: Create Core Module
+// Concatenate the Core Components here for readability
+exports.CoreComponents = [nav_bar_component_1.NavBarComponent];
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, forms_1.FormsModule,
-                angularfire2_1.AngularFireModule.initializeApp(firebaseConfig_1.FirebaseConfig), ng_bootstrap_1.NgbModule.forRoot(),
+            imports: [
+                platform_browser_1.BrowserModule,
+                forms_1.FormsModule,
+                http_1.HttpModule,
+                angularfire2_1.AngularFireModule.initializeApp(firebaseConfig_1.FirebaseConfig, firebaseConfig_1.myFirebaseAuthConfig),
+                ng_bootstrap_1.NgbModule.forRoot(),
                 primeng_1.CalendarModule,
-                app_routing_1.AppRouting, shared_module_1.SharedModule, admin_module_1.AdminModule
+                app_routing_1.AppRouting,
+                shared_module_1.SharedModule,
+                admin_module_1.AdminModule
             ],
-            declarations: [app_component_1.AppComponent, nav_bar_component_1.NavBarComponent, app_routing_1.AppRoutingComponents],
-            providers: [user_service_1.UserService, logger_service_1.Logger],
+            declarations: [
+                app_component_1.AppComponent,
+                exports.CoreComponents,
+                app_routing_1.AppRoutingComponents
+            ],
+            providers: [
+                index_1.AlertService,
+                index_1.AuthenticationService,
+                index_1.Logger,
+                index_1.UserService
+            ],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

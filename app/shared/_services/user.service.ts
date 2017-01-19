@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFire,FirebaseListObservable } from 'angularfire2';
-import { User } from './user.model';
+import { User } from '../_models/user.model';
 
 @Injectable()
 

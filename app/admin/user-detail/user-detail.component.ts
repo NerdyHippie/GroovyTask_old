@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { FirebaseObjectObservable } from 'angularfire2';
-import { User } from '../../shared/user.model';
-import { UserService } from '../../shared/user.service';
+import { User } from '../../shared/_models/user.model';
+import { UserService } from '../../shared/_services/user.service';
 
 @Component({
     moduleId: module.id,

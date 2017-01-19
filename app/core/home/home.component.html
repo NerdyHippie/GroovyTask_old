@@ -1,6 +1,12 @@
 <div class="container">
 	<h1>Home</h1>
-	<pre>
+	<a routerLink="/login">Log In!</a>
+	
+	<button type="button" (click)="login()">Login</button>
+	<button type="button" (click)="logout()">Logout</button>
+	
+	<div>uid:  <!--{{ (af.auth | async)?.uid }}--> </div>
+	<!--<pre>
 		{{info | json}}
-	</pre>
+	</pre>-->
 </div>
