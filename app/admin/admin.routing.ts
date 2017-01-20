@@ -1,6 +1,8 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes,RouterModule } from '@angular/router';
 
+import { AuthGuard } from '../shared/_guards/auth.guard';
+
 import { AdminComponent }   from './admin.component';
 import { UserManagerComponent } from './user-manager/user-manager.component';
 import { UserEditorComponent } from './user-editor/user-editor.component'
@@ -10,8 +12,13 @@ const AdminRoutes: Routes = [
     {
         path: 'admin'
         ,component: AdminComponent
+				,canActivate: [ AuthGuard ]
         ,children: [
-           {
+						{
+								path: ''
+								,redirectTo: 'users'
+								,pathMatch: 'full'
+						},{
                 path: 'users'
                 ,component: UserManagerComponent
 						 		,children: [

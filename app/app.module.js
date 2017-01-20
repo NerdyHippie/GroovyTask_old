@@ -41,6 +41,7 @@ var AppModule = (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
+                forms_1.ReactiveFormsModule,
                 http_1.HttpModule,
                 angularfire2_1.AngularFireModule.initializeApp(firebaseConfig_1.FirebaseConfig, firebaseConfig_1.myFirebaseAuthConfig),
                 ng_bootstrap_1.NgbModule.forRoot(),

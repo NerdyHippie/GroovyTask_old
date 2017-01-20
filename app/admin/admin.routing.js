@@ -1,5 +1,6 @@
 "use strict";
 var router_1 = require('@angular/router');
+var auth_guard_1 = require('../shared/_guards/auth.guard');
 var admin_component_1 = require('./admin.component');
 var user_manager_component_1 = require('./user-manager/user-manager.component');
 var user_editor_component_1 = require('./user-editor/user-editor.component');
@@ -8,8 +9,13 @@ var AdminRoutes = [
     {
         path: 'admin',
         component: admin_component_1.AdminComponent,
+        canActivate: [auth_guard_1.AuthGuard],
         children: [
             {
+                path: '',
+                redirectTo: 'users',
+                pathMatch: 'full'
+            }, {
                 path: 'users',
                 component: user_manager_component_1.UserManagerComponent,
                 children: [

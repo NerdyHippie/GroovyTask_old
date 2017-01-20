@@ -22,20 +22,26 @@ var LoginComponent = (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
         // reset login status
-        this.authenticationService.logout();
+        //this.authenticationService.logout();
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        console.log('this.returnUrl', this.returnUrl, this.route.snapshot);
     };
     LoginComponent.prototype.login = function () {
         var _this = this;
         this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
+        this.authenticationService.loginWithEmail(this.model.username, this.model.password)
             .subscribe(function (data) {
+            console.log('logged in', data);
             _this.router.navigate([_this.returnUrl]);
         }, function (error) {
             _this.alertService.error(error);
             _this.loading = false;
         });
+    };
+    LoginComponent.prototype.loginWithFacebook = function () {
+    };
+    LoginComponent.prototype.loginWithGoogle = function () {
     };
     LoginComponent = __decorate([
         core_1.Component({

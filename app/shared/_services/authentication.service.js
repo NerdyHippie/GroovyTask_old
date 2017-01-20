@@ -24,16 +24,17 @@ var AuthenticationService = (function () {
         this.uid = data.uid;
         this.authObj = data.auth;
     };
-    AuthenticationService.prototype.login = function () {
-        console.log('login');
-        this.af.auth.login({ email: 'jorvis@nerdyhippie.com', password: 'test123' }, {
+    AuthenticationService.prototype.loginWithEmail = function (username, password) {
+        console.log('login with email');
+        this.af.auth.login({ email: username, password: password }, {
             provider: angularfire2_1.AuthProviders.Password,
             method: angularfire2_1.AuthMethods.Password,
         });
-        console.log('login 2');
+        return this.af.auth;
     };
     AuthenticationService.prototype.logout = function () {
         this.af.auth.logout();
+        return this.af.auth;
     };
     AuthenticationService = __decorate([
         core_1.Injectable(), 

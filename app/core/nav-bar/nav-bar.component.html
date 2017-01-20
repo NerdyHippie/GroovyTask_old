@@ -7,11 +7,18 @@
 	<div class="collapse navbar-collapse" id="navbarsExampleDefault" [ngbCollapse]="isCollapsed">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-				<a class="nav-link" routerLink="/">Home</a>
+				<a class="nav-link" (click)="collapseNav()" routerLink="/">Home</a>
 			</li>
 			<li class="nav-item" routerLinkActive="active">
-				<a class="nav-link" routerLink="/calendar">Calendar</a>
+				<a class="nav-link" (click)="collapseNav()" routerLink="/calendar">Calendar</a>
 			</li>
+			<li class="nav-item" routerLinkActive="active">
+				<a class="nav-link" (click)="collapseNav()" routerLink="/admin">Admin</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" (click)="logout()">Log Out</a>
+			</li>
+			<!--<li clas
 			<li class="nav-item" routerLinkActive="active">
 				<a class="nav-link" routerLink="/admin">Admin</a>
 			</li>
@@ -27,6 +34,7 @@
 				</div>
 			</li>-->
 		</ul>
+		
 		<!--<form class="form-inline my-2 my-lg-0">
 			<input class="form-control mr-sm-2" type="text" placeholder="Search">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

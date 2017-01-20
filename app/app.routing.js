@@ -11,7 +11,8 @@ var appRoutes = [
         canActivate: [auth_guard_1.AuthGuard]
     }, {
         path: 'calendar',
-        component: calendar_component_1.CalendarComponent
+        component: calendar_component_1.CalendarComponent,
+        canActivate: [auth_guard_1.AuthGuard]
     }, {
         path: 'login',
         component: login_component_1.LoginComponent

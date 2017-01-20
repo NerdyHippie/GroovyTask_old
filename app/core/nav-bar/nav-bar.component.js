@@ -9,14 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+var authentication_service_1 = require('../../shared/_services/authentication.service');
 var NavBarComponent = (function () {
-    function NavBarComponent() {
+    function NavBarComponent(authSvc, router) {
+        this.authSvc = authSvc;
+        this.router = router;
         this.isCollapsed = true;
     }
     NavBarComponent.prototype.ngOnInit = function () { };
     NavBarComponent.prototype.toggleCollapse = function () {
-        console.log('toggle');
         this.isCollapsed = !this.isCollapsed;
+    };
+    NavBarComponent.prototype.collapseNav = function () {
+        this.isCollapsed = true;
+    };
+    NavBarComponent.prototype.logout = function () {
+        var _this = this;
+        console.log('logout from navbar');
+        this.authSvc.logout().subscribe(function (auth) {
+            console.log('auth changed', auth);
+            if (!auth) {
+                console.log('bounce to admin');
+                _this.router.navigate(['/admin']);
+                _this.collapseNav();
+            }
+        });
     };
     NavBarComponent = __decorate([
         core_1.Component({
@@ -24,7 +42,7 @@ var NavBarComponent = (function () {
             selector: 'nav-bar',
             templateUrl: './nav-bar.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, router_1.Router])
     ], NavBarComponent);
     return NavBarComponent;
 }());

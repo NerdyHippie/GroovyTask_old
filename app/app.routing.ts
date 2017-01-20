@@ -15,6 +15,7 @@ const appRoutes: Routes = [
     },{
         path: 'calendar'
         ,component: CalendarComponent
+				,canActivate: [ AuthGuard ]
     },{
         path: 'login'
         ,component: LoginComponent

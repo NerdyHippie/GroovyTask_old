@@ -35,6 +35,7 @@ export const CoreComponents: Array<any> = [NavBarComponent];
 	imports:      [
 		BrowserModule,
 		FormsModule,
+		ReactiveFormsModule,
 		HttpModule,
 		AngularFireModule.initializeApp(FirebaseConfig,myFirebaseAuthConfig),
 		NgbModule.forRoot()

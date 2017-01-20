@@ -22,18 +22,20 @@ export class AuthenticationService {
     	this.authObj = data.auth;
 		}
 	
-		login() {
-			console.log('login');
-			this.af.auth.login({email:'jorvis@nerdyhippie.com',password:'test123'},
+		loginWithEmail(username:string,password:string) {
+			console.log('login with email');
+			this.af.auth.login({email:username,password:password},
 				{
 					provider: AuthProviders.Password,
 					method: AuthMethods.Password,
 				});
-			console.log('login 2');
+			
+			return this.af.auth;
 		}
 		
 		logout() {
 			this.af.auth.logout();
+			return this.af.auth;
 		}
 		
     /*login(username: string, password: string) {
