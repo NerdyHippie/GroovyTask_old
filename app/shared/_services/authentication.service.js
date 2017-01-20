@@ -18,7 +18,6 @@ var AuthenticationService = (function () {
     }
     ;
     AuthenticationService.prototype.loginWithEmail = function (username, password) {
-        console.log('login with email');
         this.af.auth.login({ email: username, password: password }, {
             provider: angularfire2_1.AuthProviders.Password,
             method: angularfire2_1.AuthMethods.Password,

@@ -23,12 +23,7 @@ var NavBarComponent = (function () {
     NavBarComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.af.auth.subscribe(function (auth) { return _this.loggedIn = auth ? true : false; });
-        //this.setLoggedIn.bind(this)
     };
-    /*setLoggedIn(auth:any) {
-    console.log('set this.loggedIn in navbar',auth);
-        this.loggedIn = auth ? true : false;
-    }*/
     NavBarComponent.prototype.toggleCollapse = function () {
         this.isCollapsed = !this.isCollapsed;
     };
@@ -36,29 +31,9 @@ var NavBarComponent = (function () {
         this.isCollapsed = true;
     };
     NavBarComponent.prototype.logout = function () {
-        //console.log('navbar logout',this.route,this.route.url);
         var returnUrl = this.router.routerState.snapshot.url;
-        //this.route.url //.take(1).subscribe( (e) => returnUrl = e );
-        console.log('routerState.stanpshot', returnUrl);
-        // TODO: Maybe we chage this up so that it is a route - /logout and we can get the previous route parants, do the logout, then redirect back to prior route params (which should produce login with a valid returnUrl to page you were viewing)
         this.router.navigate(['/logout'], { queryParams: { returnUrl: returnUrl } });
         this.collapseNav();
-        /*
-        *
-        * Get current URL from router here (in navbar)
-        * This logout() should navigate to /logout and pass returnURL as queryParam (just like in login)
-        * CollapseNav() after or before?  does it matter?  try after first for readability
-        *
-        * LogoutComponent will then do the firebase logout, then send the user back to the returnUrl it got in the queryParams
-        *
-        * */
-        /*console.log('logout from navbar');
-        this.authSvc.logout().subscribe(auth => { console.log('auth changed',auth);
-        if (!auth) {
-            console.log('bounce to admin');
-            this.router.navigate(['/admin']);
-            this.collapseNav();
-            } })*/
     };
     NavBarComponent = __decorate([
         core_1.Component({

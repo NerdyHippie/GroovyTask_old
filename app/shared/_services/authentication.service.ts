@@ -9,7 +9,6 @@ export class AuthenticationService {
     constructor(private af:AngularFire) { this.auth = af };
 	
 		loginWithEmail(username:string,password:string) {
-			console.log('login with email');
 			this.af.auth.login({email:username,password:password},
 				{
 					provider: AuthProviders.Password,

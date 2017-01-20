@@ -23,10 +23,7 @@ const appRoutes: Routes = [
     },{
         path: 'logout'
         ,component: LogoutComponent
-    }/*,{
-        path: 'calendar'
-        ,component: CalendarComponent
-    }*/
+    }
 ];
 
 export const AppRoutingComponents = [HomeComponent,CalendarComponent,LoginComponent,LogoutComponent];

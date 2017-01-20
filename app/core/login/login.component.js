@@ -22,17 +22,15 @@ var LoginComponent = (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
         // reset login status
-        //this.authenticationService.logout();
+        this.authenticationService.logout();
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        console.log('this.returnUrl', this.returnUrl, this.route.snapshot);
     };
     LoginComponent.prototype.login = function () {
         var _this = this;
         this.loading = true;
         this.authenticationService.loginWithEmail(this.model.username, this.model.password)
             .subscribe(function (data) {
-            console.log('logged in', data);
             _this.router.navigate([_this.returnUrl]);
         }, function (error) {
             _this.alertService.error(error);
@@ -40,8 +38,28 @@ var LoginComponent = (function () {
         });
     };
     LoginComponent.prototype.loginWithFacebook = function () {
+        var _this = this;
+        //this.loading = true;
+        this.authenticationService.loginWithFacebook()
+            .subscribe(function (data) {
+            console.log('facebook data', data);
+            _this.router.navigate([_this.returnUrl]);
+        }, function (error) {
+            _this.alertService.error(error);
+            _this.loading = false;
+        });
     };
     LoginComponent.prototype.loginWithGoogle = function () {
+        var _this = this;
+        //this.loading = true;
+        this.authenticationService.loginWithGoogle()
+            .subscribe(function (data) {
+            console.log('google data', data);
+            _this.router.navigate([_this.returnUrl]);
+        }, function (error) {
+            _this.alertService.error(error);
+            _this.loading = false;
+        });
     };
     LoginComponent = __decorate([
         core_1.Component({

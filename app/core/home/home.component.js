@@ -9,12 +9,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var angularfire2_1 = require('angularfire2');
-var authentication_service_1 = require('../../shared/_services/authentication.service');
 var HomeComponent = (function () {
-    function HomeComponent(af, authSvc) {
-        this.af = af;
-        this.authSvc = authSvc;
+    function HomeComponent() {
     }
     HomeComponent.prototype.ngOnInit = function () {
     };
@@ -23,7 +19,7 @@ var HomeComponent = (function () {
             moduleId: module.id,
             templateUrl: 'home.component.html'
         }), 
-        __metadata('design:paramtypes', [angularfire2_1.AngularFire, authentication_service_1.AuthenticationService])
+        __metadata('design:paramtypes', [])
     ], HomeComponent);
     return HomeComponent;
 }());

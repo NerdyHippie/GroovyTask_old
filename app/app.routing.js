@@ -20,10 +20,7 @@ var appRoutes = [
     }, {
         path: 'logout',
         component: logout_component_1.LogoutComponent
-    } /*,{
-        path: 'calendar'
-        ,component: CalendarComponent
-    }*/
+    }
 ];
 exports.AppRoutingComponents = [home_component_1.HomeComponent, calendar_component_1.CalendarComponent, login_component_1.LoginComponent, logout_component_1.LogoutComponent];
 exports.AppRouting = router_1.RouterModule.forRoot(appRoutes);

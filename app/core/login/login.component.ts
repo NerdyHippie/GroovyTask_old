@@ -21,11 +21,10 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
         // reset login status
-        //this.authenticationService.logout();
+        this.authenticationService.logout();
 
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        console.log('this.returnUrl',this.returnUrl,this.route.snapshot);
     }
 
     login() {
@@ -33,8 +32,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.loginWithEmail(this.model.username, this.model.password)
             .subscribe(
                 data => {
-                	console.log('logged in',data);
-                    this.router.navigate([this.returnUrl]);
+                	  this.router.navigate([this.returnUrl]);
                 },
                 error => {
                     this.alertService.error(error);
@@ -43,9 +41,29 @@ export class LoginComponent implements OnInit {
     }
     
     loginWithFacebook() {
-    	
+			//this.loading = true;
+			this.authenticationService.loginWithFacebook()
+				.subscribe(
+					data => {
+						console.log('facebook data',data);
+						this.router.navigate([this.returnUrl]);
+					},
+					error => {
+						this.alertService.error(error);
+						this.loading = false;
+					});
 		}
 		loginWithGoogle() {
-    	
+			//this.loading = true;
+			this.authenticationService.loginWithGoogle()
+				.subscribe(
+					data => {
+						console.log('google data',data);
+						this.router.navigate([this.returnUrl]);
+					},
+					error => {
+						this.alertService.error(error);
+						this.loading = false;
+					});
 		}
 }
