@@ -10,29 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
-var angularfire2_1 = require('angularfire2');
-require('rxjs/add/operator/map');
-require('rxjs/add/operator/take');
-var AuthGuard = (function () {
-    function AuthGuard(router, af) {
+var index_1 = require('../../shared/_services/index');
+var LogoutComponent = (function () {
+    function LogoutComponent(route, router, authenticationService) {
+        this.route = route;
         this.router = router;
-        this.af = af;
+        this.authenticationService = authenticationService;
     }
-    AuthGuard.prototype.canActivate = function (route, state) {
+    LogoutComponent.prototype.ngOnInit = function () {
         var _this = this;
-        return this.af.auth.map(function (auth) {
-            if (!auth) {
-                _this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-                return false;
-            }
-            return true;
-        }).take(1);
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.authenticationService.logout().subscribe(function (auth) { if (!auth)
+            _this.router.navigate([_this.returnUrl]); });
     };
-    AuthGuard = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [router_1.Router, angularfire2_1.AngularFire])
-    ], AuthGuard);
-    return AuthGuard;
+    LogoutComponent = __decorate([
+        core_1.Component({
+            template: 'Logging out...'
+        }), 
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_1.AuthenticationService])
+    ], LogoutComponent);
+    return LogoutComponent;
 }());
-exports.AuthGuard = AuthGuard;
-//# sourceMappingURL=auth.guard.js.map
+exports.LogoutComponent = LogoutComponent;
+//# sourceMappingURL=logout.component.js.map

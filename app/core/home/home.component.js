@@ -17,20 +17,6 @@ var HomeComponent = (function () {
         this.authSvc = authSvc;
     }
     HomeComponent.prototype.ngOnInit = function () {
-        /*this.ref = this.af.database.object('/');
-        this.ref.subscribe(data => this.info = data);*/
-        //this.af.auth.subscribe(data => this.testFunc(data));
-        this.uid = this.authSvc.uid;
-        this.authObj = this.authSvc.uid;
-    };
-    HomeComponent.prototype.testFunc = function (data) {
-        console.log('authState data', data);
-    };
-    HomeComponent.prototype.login = function () {
-        this.authSvc.login();
-    };
-    HomeComponent.prototype.logout = function () {
-        this.authSvc.logout();
     };
     HomeComponent = __decorate([
         core_1.Component({

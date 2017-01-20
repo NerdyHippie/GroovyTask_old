@@ -10,16 +10,20 @@ import { AuthenticationService } from '../../shared/_services/authentication.ser
 })
 export class HomeComponent implements OnInit {
     constructor(private af: AngularFire,private authSvc: AuthenticationService ) { }
-			
-    info: any;
+		
+    ngOnInit() {
+    	
+		}
+    
+    /*info: any;
     ref: FirebaseObjectObservable<any>;
     
     uid: any;
     authObj: any;
     
     ngOnInit() {
-    	/*this.ref = this.af.database.object('/');
-    	this.ref.subscribe(data => this.info = data);*/
+    	/!*this.ref = this.af.database.object('/');
+    	this.ref.subscribe(data => this.info = data);*!/
     	
     	//this.af.auth.subscribe(data => this.testFunc(data));
     	
@@ -36,6 +40,6 @@ export class HomeComponent implements OnInit {
 		}
 		logout() {
     	this.authSvc.logout();
-		}
+		}*/
     
 }

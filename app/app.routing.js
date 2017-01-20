@@ -4,6 +4,7 @@ var auth_guard_1 = require('./shared/_guards/auth.guard');
 var home_component_1 = require('./core/home/home.component');
 var calendar_component_1 = require('./core/calendar/calendar.component');
 var login_component_1 = require('./core/login/login.component');
+var logout_component_1 = require('./core/logout/logout.component');
 var appRoutes = [
     {
         path: '',
@@ -16,11 +17,14 @@ var appRoutes = [
     }, {
         path: 'login',
         component: login_component_1.LoginComponent
+    }, {
+        path: 'logout',
+        component: logout_component_1.LogoutComponent
     } /*,{
         path: 'calendar'
         ,component: CalendarComponent
     }*/
 ];
-exports.AppRoutingComponents = [home_component_1.HomeComponent, calendar_component_1.CalendarComponent, login_component_1.LoginComponent];
+exports.AppRoutingComponents = [home_component_1.HomeComponent, calendar_component_1.CalendarComponent, login_component_1.LoginComponent, logout_component_1.LogoutComponent];
 exports.AppRouting = router_1.RouterModule.forRoot(appRoutes);
 //# sourceMappingURL=app.routing.js.map

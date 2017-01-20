@@ -10,25 +10,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var angularfire2_1 = require('angularfire2');
-var http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
 var AuthenticationService = (function () {
-    function AuthenticationService(af, http) {
+    function AuthenticationService(af) {
         this.af = af;
-        this.http = http;
-        console.log('consutrct authSvc');
-        //af.auth.subscribe(data => this.setAuthData(data));
+        this.auth = af;
     }
-    AuthenticationService.prototype.setAuthData = function (data) {
-        console.log('set auth data', data);
-        this.uid = data.uid;
-        this.authObj = data.auth;
-    };
+    ;
     AuthenticationService.prototype.loginWithEmail = function (username, password) {
         console.log('login with email');
         this.af.auth.login({ email: username, password: password }, {
             provider: angularfire2_1.AuthProviders.Password,
             method: angularfire2_1.AuthMethods.Password,
+        });
+        return this.af.auth;
+    };
+    AuthenticationService.prototype.loginWithFacebook = function () {
+        console.log('login with Facebook');
+        this.af.auth.login({
+            provider: angularfire2_1.AuthProviders.Facebook,
+            method: angularfire2_1.AuthMethods.Popup,
+        });
+        return this.af.auth;
+    };
+    AuthenticationService.prototype.loginWithGoogle = function () {
+        console.log('login with Google');
+        this.af.auth.login({
+            provider: angularfire2_1.AuthProviders.Google,
+            method: angularfire2_1.AuthMethods.Popup,
         });
         return this.af.auth;
     };
@@ -38,7 +47,7 @@ var AuthenticationService = (function () {
     };
     AuthenticationService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [angularfire2_1.AngularFire, http_1.Http])
+        __metadata('design:paramtypes', [angularfire2_1.AngularFire])
     ], AuthenticationService);
     return AuthenticationService;
 }());
