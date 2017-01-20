@@ -18,6 +18,7 @@ var ng_bootstrap_1 = require('@ng-bootstrap/ng-bootstrap');
 var primeng_1 = require('primeng/primeng');
 // App Routing
 var app_routing_1 = require('./app.routing');
+var index_1 = require('./shared/_guards/index');
 // GroovyTask Modules
 var admin_module_1 = require('./admin/admin.module');
 var shared_module_1 = require('./shared/shared.module');
@@ -25,7 +26,7 @@ var shared_module_1 = require('./shared/shared.module');
 var app_component_1 = require('./app.component');
 var nav_bar_component_1 = require('./core/nav-bar/nav-bar.component');
 // Global Services
-var index_1 = require('./shared/_services/index');
+var index_2 = require('./shared/_services/index');
 // Environment Config
 //noinspection TypeScriptCheckImport
 var firebaseConfig_1 = require('firebaseConfig');
@@ -54,10 +55,11 @@ var AppModule = (function () {
                 app_routing_1.AppRoutingComponents
             ],
             providers: [
-                index_1.AlertService,
-                index_1.AuthenticationService,
-                index_1.Logger,
-                index_1.UserService
+                index_1.AuthGuard,
+                index_2.AlertService,
+                index_2.AuthenticationService,
+                index_2.Logger,
+                index_2.UserService
             ],
             bootstrap: [app_component_1.AppComponent]
         }), 

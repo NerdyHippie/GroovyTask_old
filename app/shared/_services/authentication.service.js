@@ -9,30 +9,35 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var angularfire2_1 = require('angularfire2');
 var http_1 = require('@angular/http');
 require('rxjs/add/operator/map');
 var AuthenticationService = (function () {
-    function AuthenticationService(http) {
+    function AuthenticationService(af, http) {
+        this.af = af;
         this.http = http;
+        console.log('consutrct authSvc');
+        //af.auth.subscribe(data => this.setAuthData(data));
     }
-    AuthenticationService.prototype.login = function (username, password) {
-        return this.http.post('/api/authenticate', JSON.stringify({ username: username, password: password }))
-            .map(function (response) {
-            // login successful if there's a jwt token in the response
-            var user = response.json();
-            if (user && user.token) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user));
-            }
+    AuthenticationService.prototype.setAuthData = function (data) {
+        console.log('set auth data', data);
+        this.uid = data.uid;
+        this.authObj = data.auth;
+    };
+    AuthenticationService.prototype.login = function () {
+        console.log('login');
+        this.af.auth.login({ email: 'jorvis@nerdyhippie.com', password: 'test123' }, {
+            provider: angularfire2_1.AuthProviders.Password,
+            method: angularfire2_1.AuthMethods.Password,
         });
+        console.log('login 2');
     };
     AuthenticationService.prototype.logout = function () {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        this.af.auth.logout();
     };
     AuthenticationService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [angularfire2_1.AngularFire, http_1.Http])
     ], AuthenticationService);
     return AuthenticationService;
 }());

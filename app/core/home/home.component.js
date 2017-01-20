@@ -10,36 +10,34 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var angularfire2_1 = require('angularfire2');
+var authentication_service_1 = require('../../shared/_services/authentication.service');
 var HomeComponent = (function () {
-    function HomeComponent(af) {
+    function HomeComponent(af, authSvc) {
         this.af = af;
+        this.authSvc = authSvc;
     }
     HomeComponent.prototype.ngOnInit = function () {
         /*this.ref = this.af.database.object('/');
         this.ref.subscribe(data => this.info = data);*/
-        var _this = this;
-        this.af.auth.subscribe(function (data) { return _this.testFunc(data); });
+        //this.af.auth.subscribe(data => this.testFunc(data));
+        this.uid = this.authSvc.uid;
+        this.authObj = this.authSvc.uid;
     };
     HomeComponent.prototype.testFunc = function (data) {
         console.log('authState data', data);
     };
     HomeComponent.prototype.login = function () {
-        console.log('login');
-        this.af.auth.login({ email: 'jorvis@nerdyhippie.com', password: 'test123' }, {
-            provider: angularfire2_1.AuthProviders.Password,
-            method: angularfire2_1.AuthMethods.Password,
-        });
-        console.log('login 2');
+        this.authSvc.login();
     };
     HomeComponent.prototype.logout = function () {
-        this.af.auth.logout();
+        this.authSvc.logout();
     };
     HomeComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: 'home.component.html'
         }), 
-        __metadata('design:paramtypes', [angularfire2_1.AngularFire])
+        __metadata('design:paramtypes', [angularfire2_1.AngularFire, authentication_service_1.AuthenticationService])
     ], HomeComponent);
     return HomeComponent;
 }());

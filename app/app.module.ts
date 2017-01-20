@@ -9,6 +9,7 @@ import { CalendarModule } from 'primeng/primeng';
 
 // App Routing
 import { AppRouting,AppRoutingComponents } from './app.routing';
+import { AuthGuard } from './shared/_guards/index';
 
 // GroovyTask Modules
 import { AdminModule } from './admin/admin.module';
@@ -49,6 +50,7 @@ export const CoreComponents: Array<any> = [NavBarComponent];
 	],
 	
 	providers: [
+		AuthGuard,
 		AlertService,
 		AuthenticationService,
 		Logger,
