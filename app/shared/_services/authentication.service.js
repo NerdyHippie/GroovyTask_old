@@ -25,7 +25,6 @@ var AuthenticationService = (function () {
         return this.af.auth;
     };
     AuthenticationService.prototype.loginWithFacebook = function () {
-        console.log('login with Facebook');
         this.af.auth.login({
             provider: angularfire2_1.AuthProviders.Facebook,
             method: angularfire2_1.AuthMethods.Popup,

@@ -19,7 +19,6 @@ export class AuthenticationService {
 		}
 		
 		loginWithFacebook() {
-			console.log('login with Facebook');
 			this.af.auth.login(
 				{
 					provider: AuthProviders.Facebook,

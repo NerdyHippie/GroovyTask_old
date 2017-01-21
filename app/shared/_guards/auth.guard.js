@@ -22,7 +22,11 @@ var AuthGuard = (function () {
         var _this = this;
         return this.af.auth.map(function (auth) {
             if (!auth) {
-                _this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+                var queryParams = {};
+                if (state.url != '/') {
+                    queryParams.returnUrl = state.url;
+                }
+                _this.router.navigate(['/login'], { queryParams: queryParams });
                 return false;
             }
             return true;

@@ -22,7 +22,7 @@ var LoginComponent = (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
         // reset login status
-        this.authenticationService.logout();
+        //this.authenticationService.logout();
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     };
@@ -42,7 +42,6 @@ var LoginComponent = (function () {
         //this.loading = true;
         this.authenticationService.loginWithFacebook()
             .subscribe(function (data) {
-            console.log('facebook data', data);
             _this.router.navigate([_this.returnUrl]);
         }, function (error) {
             _this.alertService.error(error);
@@ -54,7 +53,6 @@ var LoginComponent = (function () {
         //this.loading = true;
         this.authenticationService.loginWithGoogle()
             .subscribe(function (data) {
-            console.log('google data', data);
             _this.router.navigate([_this.returnUrl]);
         }, function (error) {
             _this.alertService.error(error);
