@@ -2,6 +2,15 @@ import { Injectable } from "@angular/core";
 import { AngularFire,FirebaseListObservable } from 'angularfire2';
 import { User } from '../_models/user.model';
 
+export interface NewUserData {
+	uid: String
+	,firstName?: String
+	,lastName?: String
+	,email: String
+	,photoUrl?: String
+	,displayName?: String
+}
+
 @Injectable()
 
 export class UserService {
@@ -32,5 +41,13 @@ export class UserService {
 		//console.log('get user',userId);
 		let path = '/users/'+userId;
 		return this.af.database.object(path);
+	}
+	
+	createUserAccount(userData:NewUserData) {
+		let uid = userData.uid;
+		delete userData.uid;
+		
+		let usr = this.af.database.object('/users/'+uid);
+		return usr.set(userData);
 	}
 }

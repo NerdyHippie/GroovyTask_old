@@ -35,6 +35,12 @@ var UserService = (function () {
         var path = '/users/' + userId;
         return this.af.database.object(path);
     };
+    UserService.prototype.createUserAccount = function (userData) {
+        var uid = userData.uid;
+        delete userData.uid;
+        var usr = this.af.database.object('/users/' + uid);
+        return usr.set(userData);
+    };
     UserService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [angularfire2_1.AngularFire])
