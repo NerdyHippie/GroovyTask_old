@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    login() {
+    loginWithEmail() {
         this.loading = true;
         this.authenticationService.loginWithEmail(this.model.username, this.model.password)
             .subscribe(this.handleLoginSuccess.bind(this),this.handleLoginError.bind(this));

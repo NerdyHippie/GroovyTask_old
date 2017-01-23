@@ -7,5 +7,5 @@ export interface User {
 	displayName?: String
 	photoURL?: String
 	provider?: String
-	dateCreated?: Date
+	dateCreated?: String
 }

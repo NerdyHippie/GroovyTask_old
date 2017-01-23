@@ -26,7 +26,7 @@ var LoginComponent = (function () {
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     };
-    LoginComponent.prototype.login = function () {
+    LoginComponent.prototype.loginWithEmail = function () {
         this.loading = true;
         this.authenticationService.loginWithEmail(this.model.username, this.model.password)
             .subscribe(this.handleLoginSuccess.bind(this), this.handleLoginError.bind(this));

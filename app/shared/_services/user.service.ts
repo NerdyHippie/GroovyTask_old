@@ -12,6 +12,7 @@ export interface NewUserData {
 	,email: String
 	,photoURL?: String
 	,displayName?: String
+	,dateCreated?: String
 }
 
 @Injectable()
@@ -66,14 +67,15 @@ export class UserService {
 		
 		let usr = this.af.database.object('/users/'+uid);
 		
-		usr.subscribe(user => {
+		let usr$ = usr.subscribe(user => {
 			console.log('usr exists?',user.$exists());
 			if (!user.$exists()) {
 				console.info('add dateCreated',moment().format());
-				user.dateCreated = moment().format();
+				userData.dateCreated = moment().format();
 			}
+			usr$.unsubscribe();
+			return usr.set(userData);
 		});
 		
-		return usr.set(userData);
 	}
 }

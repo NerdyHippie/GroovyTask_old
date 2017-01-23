@@ -53,14 +53,15 @@ var UserService = (function () {
         var uid = userData.uid;
         delete userData.uid;
         var usr = this.af.database.object('/users/' + uid);
-        usr.subscribe(function (user) {
+        var usr$ = usr.subscribe(function (user) {
             console.log('usr exists?', user.$exists());
             if (!user.$exists()) {
                 console.info('add dateCreated', moment().format());
-                user.dateCreated = moment().format();
+                userData.dateCreated = moment().format();
             }
+            usr$.unsubscribe();
+            return usr.set(userData);
         });
-        return usr.set(userData);
     };
     UserService = __decorate([
         core_1.Injectable(), 
