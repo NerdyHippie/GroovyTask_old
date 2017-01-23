@@ -42,11 +42,12 @@ export class RegisterComponent {
 			this.model.uid = data.uid;
 			delete this.model.password;
 			
-			this.usrSvc.createUserAccount(this.model).then(() => {
+			this.usrSvc.loadCurrentUser(this.model).then(() => {
 				console.log('acct created, reg finished');
 				this.alertService.success('Registration successful', true);
 				this.router.navigate(['/']);
 			});
+			
 			
 		}
 		private registerFailure(error:any) {

@@ -42,7 +42,7 @@ var RegisterComponent = (function () {
         console.log('firebase reg success!', data);
         this.model.uid = data.uid;
         delete this.model.password;
-        this.usrSvc.createUserAccount(this.model).then(function () {
+        this.usrSvc.loadCurrentUser(this.model).then(function () {
             console.log('acct created, reg finished');
             _this.alertService.success('Registration successful', true);
             _this.router.navigate(['/']);

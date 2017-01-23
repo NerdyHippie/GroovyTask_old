@@ -1,12 +1,13 @@
 ﻿import { Injectable } from '@angular/core';
-import { AngularFire,AuthProviders,AuthMethods } from 'angularfire2';
+import { AngularFire,AngularFireAuth,AuthProviders,AuthMethods } from 'angularfire2';
+import { UserService } from './user.service';
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthenticationService {
-		auth:any;
+		auth:AngularFireAuth;
 	
-    constructor(private af:AngularFire) { this.auth = af };
+    constructor(private af:AngularFire,private usrSvc:UserService) { this.auth = af.auth };
 	
 		loginWithEmail(username:string,password:string) {
 			this.af.auth.login({email:username,password:password},
@@ -23,7 +24,9 @@ export class AuthenticationService {
 				{
 					provider: AuthProviders.Facebook,
 					method: AuthMethods.Popup,
-				});
+				})
+				.then((authData:any) => this.handleAuthSuccess(authData))
+				.catch((authError:any) => this.handleAuthError(authError));
 			
 			return this.af.auth;
 		}
@@ -33,9 +36,20 @@ export class AuthenticationService {
 				{
 					provider: AuthProviders.Google,
 					method: AuthMethods.Popup,
-				});
+				})
+				.then((authData:any) => this.handleAuthSuccess(authData))
+				.catch((authError:any) => this.handleAuthError(authError));
 			
 			return this.af.auth;
+		}
+		
+		handleAuthSuccess(authData:any) {
+			console.log(authData);
+			this.usrSvc.loadCurrentUser(authData);
+		}
+		handleAuthError(authError:any) {
+			console.log(authError);
+			alert('error logging into facebook');
 		}
 		
 		logout() {

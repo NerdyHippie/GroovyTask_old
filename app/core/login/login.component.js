@@ -27,37 +27,26 @@ var LoginComponent = (function () {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     };
     LoginComponent.prototype.login = function () {
-        var _this = this;
         this.loading = true;
         this.authenticationService.loginWithEmail(this.model.username, this.model.password)
-            .subscribe(function (data) {
-            _this.router.navigate([_this.returnUrl]);
-        }, function (error) {
-            _this.alertService.error(error);
-            _this.loading = false;
-        });
+            .subscribe(this.handleLoginSuccess.bind(this), this.handleLoginError.bind(this));
     };
     LoginComponent.prototype.loginWithFacebook = function () {
-        var _this = this;
         //this.loading = true;
         this.authenticationService.loginWithFacebook()
-            .subscribe(function (data) {
-            _this.router.navigate([_this.returnUrl]);
-        }, function (error) {
-            _this.alertService.error(error);
-            _this.loading = false;
-        });
+            .subscribe(this.handleLoginSuccess.bind(this), this.handleLoginError.bind(this));
     };
     LoginComponent.prototype.loginWithGoogle = function () {
-        var _this = this;
         //this.loading = true;
         this.authenticationService.loginWithGoogle()
-            .subscribe(function (data) {
-            _this.router.navigate([_this.returnUrl]);
-        }, function (error) {
-            _this.alertService.error(error);
-            _this.loading = false;
-        });
+            .subscribe(this.handleLoginSuccess.bind(this), this.handleLoginError.bind(this));
+    };
+    LoginComponent.prototype.handleLoginSuccess = function (data) {
+        this.router.navigate([this.returnUrl]);
+    };
+    LoginComponent.prototype.handleLoginError = function (error) {
+        this.alertService.error(error);
+        this.loading = false;
     };
     LoginComponent = __decorate([
         core_1.Component({

@@ -30,38 +30,25 @@ export class LoginComponent implements OnInit {
     login() {
         this.loading = true;
         this.authenticationService.loginWithEmail(this.model.username, this.model.password)
-            .subscribe(
-                data => {
-                	  this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
+            .subscribe(this.handleLoginSuccess.bind(this),this.handleLoginError.bind(this));
     }
     
     loginWithFacebook() {
 			//this.loading = true;
 			this.authenticationService.loginWithFacebook()
-				.subscribe(
-					data => {
-						this.router.navigate([this.returnUrl]);
-					},
-					error => {
-						this.alertService.error(error);
-						this.loading = false;
-					});
+				.subscribe(this.handleLoginSuccess.bind(this),this.handleLoginError.bind(this));
 		}
 		loginWithGoogle() {
 			//this.loading = true;
 			this.authenticationService.loginWithGoogle()
-				.subscribe(
-					data => {
-						this.router.navigate([this.returnUrl]);
-					},
-					error => {
-						this.alertService.error(error);
-						this.loading = false;
-					});
+				.subscribe(this.handleLoginSuccess.bind(this),this.handleLoginError.bind(this));
+		}
+		
+		private handleLoginSuccess(data:any) {
+    	this.router.navigate([this.returnUrl]);
+		}
+		private handleLoginError(error:any) {
+			this.alertService.error(error);
+			this.loading = false;
 		}
 }
