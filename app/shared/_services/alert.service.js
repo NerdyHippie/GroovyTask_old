@@ -38,7 +38,6 @@ var AlertService = (function () {
     };
     AlertService.prototype.error = function (message, keepAfterNavigationChange) {
         if (keepAfterNavigationChange === void 0) { keepAfterNavigationChange = false; }
-        console.log('error in alert service', message);
         this.keepAfterNavigationChange = keepAfterNavigationChange;
         this.subject.next({ type: 'error', text: message });
     };

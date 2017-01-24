@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit,OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { AlertService, AuthenticationService } from '../../shared/_services/index';
+import { AlertService, AuthenticationService, Logger } from '../../shared/_services/index';
 import { Subscription} from "rxjs";
 
 @Component({
@@ -19,7 +19,9 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService) { }
+        private alertService: AlertService,
+				private logger: Logger
+		) { }
 
     ngOnInit() {
         // reset login status
@@ -36,29 +38,31 @@ export class LoginComponent implements OnInit {
 
     loginWithEmail() {
         this.loading = true;
-        this.authenticationService.loginWithEmail(this.model.username, this.model.password);
-            
+        this.authenticationService.loginWithEmail(this.model.username, this.model.password)
+					.catch((authError:any) => {
+						this.loading = false;
+						
+						this.alertService.error(authError);
+						this.logger.error('GroovyTask: Error authenticating user',authError);
+        });
     }
     
     loginWithFacebook() {
 			this.loading = true;
 			this.authenticationService.loginWithFacebook();
-				//.subscribe(this.handleLoginSuccess.bind(this),this.handleLoginError.bind(this));
 		}
 		loginWithGoogle() {
 			this.loading = true;
 			this.authenticationService.loginWithGoogle();
-				//.subscribe(this.handleLoginSuccess.bind(this),this.handleLoginError.bind(this));
 		}
 		
 		private handleLoginSuccess(data:any) {
-    	console.log('login success, data = ',data);
     	this.router.navigate([this.returnUrl]);
 			this.loading = false;
 		}
 		private handleLoginError(error:any) {
-    	console.log('login error', error);
-			this.alertService.error(error);
+    	this.logger.error('login error', error);
 			this.loading = false;
+			this.alertService.error(error);
 		}
 }

@@ -12,11 +12,12 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var index_1 = require('../../shared/_services/index');
 var LoginComponent = (function () {
-    function LoginComponent(route, router, authenticationService, alertService) {
+    function LoginComponent(route, router, authenticationService, alertService, logger) {
         this.route = route;
         this.router = router;
         this.authenticationService = authenticationService;
         this.alertService = alertService;
+        this.logger = logger;
         this.model = {};
         this.loading = false;
     }
@@ -31,35 +32,38 @@ var LoginComponent = (function () {
         this.loginSubscription$.unsubscribe();
     };
     LoginComponent.prototype.loginWithEmail = function () {
+        var _this = this;
         this.loading = true;
-        this.authenticationService.loginWithEmail(this.model.username, this.model.password);
+        this.authenticationService.loginWithEmail(this.model.username, this.model.password)
+            .catch(function (authError) {
+            _this.loading = false;
+            _this.alertService.error(authError);
+            _this.logger.error('GroovyTask: Error authenticating user', authError);
+        });
     };
     LoginComponent.prototype.loginWithFacebook = function () {
         this.loading = true;
         this.authenticationService.loginWithFacebook();
-        //.subscribe(this.handleLoginSuccess.bind(this),this.handleLoginError.bind(this));
     };
     LoginComponent.prototype.loginWithGoogle = function () {
         this.loading = true;
         this.authenticationService.loginWithGoogle();
-        //.subscribe(this.handleLoginSuccess.bind(this),this.handleLoginError.bind(this));
     };
     LoginComponent.prototype.handleLoginSuccess = function (data) {
-        console.log('login success, data = ', data);
         this.router.navigate([this.returnUrl]);
         this.loading = false;
     };
     LoginComponent.prototype.handleLoginError = function (error) {
-        console.log('login error', error);
-        this.alertService.error(error);
+        this.logger.error('login error', error);
         this.loading = false;
+        this.alertService.error(error);
     };
     LoginComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             templateUrl: 'login.component.html'
         }), 
-        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_1.AuthenticationService, index_1.AlertService])
+        __metadata('design:paramtypes', [router_1.ActivatedRoute, router_1.Router, index_1.AuthenticationService, index_1.AlertService, index_1.Logger])
     ], LoginComponent);
     return LoginComponent;
 }());

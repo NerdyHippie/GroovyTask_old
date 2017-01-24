@@ -40,37 +40,22 @@ export class UserService {
 	}
 	
 	getUser(userId:String):any {
-		//console.log('get user',userId);
 		let path = '/users/'+userId;
 		return this.af.database.object(path);
 	}
 	
 	loadCurrentUser(authData:any) {
-		this.logger.log('loadCurrentUser',authData);
-		
 		this.getUser(authData.uid).subscribe((usrData:any) => {
-			console.log('set currentUser',usrData);
+			this.logger.log('set currentUser',usrData);
 			this.currentUser.next(usrData)
 		});
-		/*let usrData:User = {
-			uid: authData.uid
-			,email: authData.auth.email
-			,displayName: authData.auth.displayName
-			,provider: authData.provider
-		};*/
-		
-		/*if (authData.provider == "1") {
-			console.log('provider is 1')
-			delete usrData.displayName;
-			
-		}*/
 		return this.currentUser
 	}
 	
 	setUserAccount(authData:any) {
-		console.log('set account',authData);
+		this.logger.log('set account',authData);
 		
-		let providerData = authData.auth.providerData[0]
+		let providerData = authData.auth.providerData[0];
 		
 		let userData:any = {
 			uid: authData.uid
@@ -80,11 +65,12 @@ export class UserService {
 			,providerUid: providerData.uid
 		};
 		
+		/* Ended up not needing this, but it's handy to know...
 		let providerMap:any = {
 			'2': 'facebook'
 			,'3': 'google'
 			,'4': 'firebase'
-		};
+		};*/
 		
 		if (providerData.providerId != 'password') {
 			userData.displayName = providerData.displayName || null;
@@ -97,9 +83,9 @@ export class UserService {
 		let usr = this.getUser(userData.uid);
 				
 		let usr$ = usr.subscribe((user:any) => {
-			console.log('usr exists?',user.$exists(),usr);
+			this.logger.log('usr exists?',user.$exists(),usr);
 			if (!user.$exists() || !user.dateCreated) {
-				console.info('add dateCreated',moment().format());
+				this.logger.log('add dateCreated',moment().format());
 				userData.dateCreated = moment().format();
 				usr.set(userData);
 			}

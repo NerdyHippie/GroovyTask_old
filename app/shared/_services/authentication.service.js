@@ -38,41 +38,28 @@ var AuthenticationService = (function () {
     }
     ;
     AuthenticationService.prototype.loginWithEmail = function (username, password) {
-        var _this = this;
-        this.af.auth.login({ email: username, password: password }, {
+        return this.af.auth.login({ email: username, password: password }, {
             provider: angularfire2_1.AuthProviders.Password,
             method: angularfire2_1.AuthMethods.Password,
-        })
-            .catch(function (authError) { return _this.handleAuthError(authError); });
-        return this.af.auth;
+        });
     };
     AuthenticationService.prototype.loginWithFacebook = function () {
-        var _this = this;
-        this.af.auth.login({
+        return this.af.auth.login({
             provider: angularfire2_1.AuthProviders.Facebook,
             method: angularfire2_1.AuthMethods.Popup,
-        })
-            .catch(function (authError) { return _this.handleAuthError(authError); });
-        return this.af.auth;
+        });
     };
     AuthenticationService.prototype.loginWithGoogle = function () {
-        var _this = this;
-        console.log('login with Google');
-        this.af.auth.login({
+        //console.log('login with Google');
+        return this.af.auth.login({
             provider: angularfire2_1.AuthProviders.Google,
             method: angularfire2_1.AuthMethods.Popup,
-        })
-            .catch(function (authError) { return _this.handleAuthError(authError); });
-        return this.af.auth;
+        });
     };
     AuthenticationService.prototype.handleAuthSuccess = function (authData) {
         this.logger.log('firing handleAuthSuccess', authData);
         this.usrSvc.setUserAccount(authData);
         this.usrSvc.loadCurrentUser(authData);
-    };
-    AuthenticationService.prototype.handleAuthError = function (authError) {
-        this.alertService.error(authError);
-        this.logger.error('GroovyTask: Error authenticating user', authError);
     };
     AuthenticationService.prototype.logout = function () {
         this.af.auth.logout();

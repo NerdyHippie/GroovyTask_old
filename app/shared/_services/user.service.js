@@ -34,32 +34,20 @@ var UserService = (function () {
         return input;
     };
     UserService.prototype.getUser = function (userId) {
-        //console.log('get user',userId);
         var path = '/users/' + userId;
         return this.af.database.object(path);
     };
     UserService.prototype.loadCurrentUser = function (authData) {
         var _this = this;
-        this.logger.log('loadCurrentUser', authData);
         this.getUser(authData.uid).subscribe(function (usrData) {
-            console.log('set currentUser', usrData);
+            _this.logger.log('set currentUser', usrData);
             _this.currentUser.next(usrData);
         });
-        /*let usrData:User = {
-            uid: authData.uid
-            ,email: authData.auth.email
-            ,displayName: authData.auth.displayName
-            ,provider: authData.provider
-        };*/
-        /*if (authData.provider == "1") {
-            console.log('provider is 1')
-            delete usrData.displayName;
-            
-        }*/
         return this.currentUser;
     };
     UserService.prototype.setUserAccount = function (authData) {
-        console.log('set account', authData);
+        var _this = this;
+        this.logger.log('set account', authData);
         var providerData = authData.auth.providerData[0];
         var userData = {
             uid: authData.uid,
@@ -68,11 +56,12 @@ var UserService = (function () {
             lastLogin: moment().format(),
             providerUid: providerData.uid
         };
-        var providerMap = {
-            '2': 'facebook',
-            '3': 'google',
-            '4': 'firebase'
-        };
+        /* Ended up not needing this, but it's handy to know...
+        let providerMap:any = {
+            '2': 'facebook'
+            ,'3': 'google'
+            ,'4': 'firebase'
+        };*/
         if (providerData.providerId != 'password') {
             userData.displayName = providerData.displayName || null;
             userData.photoURL = providerData.photoURL || null;
@@ -85,9 +74,9 @@ var UserService = (function () {
         }
         var usr = this.getUser(userData.uid);
         var usr$ = usr.subscribe(function (user) {
-            console.log('usr exists?', user.$exists(), usr);
+            _this.logger.log('usr exists?', user.$exists(), usr);
             if (!user.$exists() || !user.dateCreated) {
-                console.info('add dateCreated', moment().format());
+                _this.logger.log('add dateCreated', moment().format());
                 userData.dateCreated = moment().format();
                 usr.set(userData);
             }

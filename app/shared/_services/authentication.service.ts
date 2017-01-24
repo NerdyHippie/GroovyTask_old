@@ -20,46 +20,33 @@ export class AuthenticationService {
 				} else {
 					logger.log('nav to logout');
 					let returnUrl:string = this.router.routerState.snapshot.url;
-					
 					this.router.navigate(['/logout'], { queryParams: { returnUrl: returnUrl }});
 				}
 			})
     };
 	
 		loginWithEmail(username:string,password:string) {
-			this.af.auth.login({email:username,password:password},
+			return this.af.auth.login({email:username,password:password},
 				{
 					provider: AuthProviders.Password,
 					method: AuthMethods.Password,
-				})
-				//.then((authData:any) => { console.log('fire authsuccess from loginWIthEmail'); this.handleAuthSuccess(authData)})
-				.catch((authError:any) => this.handleAuthError(authError));
-			
-			return this.af.auth;
+				});
 		}
 		
 		loginWithFacebook() {
-			this.af.auth.login(
+			return this.af.auth.login(
 				{
 					provider: AuthProviders.Facebook,
 					method: AuthMethods.Popup,
-				})
-				//.then((authData:any) => this.handleAuthSuccess(authData))
-				.catch((authError:any) => this.handleAuthError(authError));
-			
-			return this.af.auth;
+				});
 		}
 		loginWithGoogle() {
-			console.log('login with Google');
-			this.af.auth.login(
+			//console.log('login with Google');
+			return this.af.auth.login(
 				{
 					provider: AuthProviders.Google,
 					method: AuthMethods.Popup,
-				})
-				//.then((authData:any) => this.handleAuthSuccess(authData))
-				.catch((authError:any) => this.handleAuthError(authError));
-			
-			return this.af.auth;
+				});
 		}
 		
 		handleAuthSuccess(authData:any) {
@@ -67,10 +54,6 @@ export class AuthenticationService {
 			
 			this.usrSvc.setUserAccount(authData);
 			this.usrSvc.loadCurrentUser(authData);
-		}
-		handleAuthError(authError:any) {
-			this.alertService.error(authError);
-			this.logger.error('GroovyTask: Error authenticating user',authError);
 		}
 		
 		logout() {
