@@ -12,10 +12,23 @@ var core_1 = require('@angular/core');
 var Logger = (function () {
     function Logger() {
         this.logs = []; // capture logs for testing
+        this.errors = [];
     }
     Logger.prototype.log = function (message) {
+        var params = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            params[_i - 1] = arguments[_i];
+        }
         this.logs.push(message);
-        console.info(message);
+        console.info(message, params);
+    };
+    Logger.prototype.error = function (message) {
+        var params = [];
+        for (var _i = 1; _i < arguments.length; _i++) {
+            params[_i - 1] = arguments[_i];
+        }
+        this.errors.push(message);
+        console.error(message, params);
     };
     Logger = __decorate([
         core_1.Injectable(), 

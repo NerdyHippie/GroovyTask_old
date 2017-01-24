@@ -27,7 +27,7 @@ export class NavBarComponent implements OnInit {
 		}
 		
 		logout() {
-			let returnUrl:any = this.router.routerState.snapshot.url;
+			let returnUrl:string = this.router.routerState.snapshot.url;
 			
 			this.router.navigate(['/logout'], { queryParams: { returnUrl: returnUrl }});
 			this.collapseNav();

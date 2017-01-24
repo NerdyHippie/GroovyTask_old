@@ -25,25 +25,29 @@ var LoginComponent = (function () {
         //this.authenticationService.logout();
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+        this.loginSubscription$ = this.authenticationService.auth.subscribe(this.handleLoginSuccess.bind(this), this.handleLoginError.bind(this));
+    };
+    LoginComponent.prototype.ngOnDestroy = function () {
+        this.loginSubscription$.unsubscribe();
     };
     LoginComponent.prototype.loginWithEmail = function () {
         this.loading = true;
-        this.authenticationService.loginWithEmail(this.model.username, this.model.password)
-            .subscribe(this.handleLoginSuccess.bind(this), this.handleLoginError.bind(this));
+        this.authenticationService.loginWithEmail(this.model.username, this.model.password);
     };
     LoginComponent.prototype.loginWithFacebook = function () {
-        //this.loading = true;
-        this.authenticationService.loginWithFacebook()
-            .subscribe(this.handleLoginSuccess.bind(this), this.handleLoginError.bind(this));
+        this.loading = true;
+        this.authenticationService.loginWithFacebook();
+        //.subscribe(this.handleLoginSuccess.bind(this),this.handleLoginError.bind(this));
     };
     LoginComponent.prototype.loginWithGoogle = function () {
-        //this.loading = true;
-        this.authenticationService.loginWithGoogle()
-            .subscribe(this.handleLoginSuccess.bind(this), this.handleLoginError.bind(this));
+        this.loading = true;
+        this.authenticationService.loginWithGoogle();
+        //.subscribe(this.handleLoginSuccess.bind(this),this.handleLoginError.bind(this));
     };
     LoginComponent.prototype.handleLoginSuccess = function (data) {
         console.log('login success, data = ', data);
         this.router.navigate([this.returnUrl]);
+        this.loading = false;
     };
     LoginComponent.prototype.handleLoginError = function (error) {
         console.log('login error', error);

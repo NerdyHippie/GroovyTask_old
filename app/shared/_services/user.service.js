@@ -10,13 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var angularfire2_1 = require('angularfire2');
+var logger_service_1 = require('./logger.service');
 var moment = require('moment');
 var ReplaySubject_1 = require('rxjs/ReplaySubject');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/take');
 var UserService = (function () {
-    function UserService(af) {
+    function UserService(af, logger) {
         this.af = af;
+        this.logger = logger;
         this.currentUser = new ReplaySubject_1.ReplaySubject(1);
         this.initialize();
     }
@@ -38,7 +40,7 @@ var UserService = (function () {
     };
     UserService.prototype.loadCurrentUser = function (authData) {
         var _this = this;
-        console.log('loadCurrentUser', authData);
+        this.logger.log('loadCurrentUser', authData);
         this.getUser(authData.uid).subscribe(function (usrData) {
             console.log('set currentUser', usrData);
             _this.currentUser.next(usrData);
@@ -67,6 +69,7 @@ var UserService = (function () {
             providerUid: providerData.uid
         };
         var providerMap = {
+            '2': 'facebook',
             '3': 'google',
             '4': 'firebase'
         };
@@ -94,7 +97,7 @@ var UserService = (function () {
     };
     UserService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [angularfire2_1.AngularFire])
+        __metadata('design:paramtypes', [angularfire2_1.AngularFire, logger_service_1.Logger])
     ], UserService);
     return UserService;
 }());

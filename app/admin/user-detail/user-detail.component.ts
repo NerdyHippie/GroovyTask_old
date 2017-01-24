@@ -30,7 +30,7 @@ export class UserDetailComponent implements OnInit {
 			this.user$.subscribe(this.popUser.bind(this));  // Pass the user data to popUser.  Add .bind(this) to refer to the proper function scope
 		} else {
 			// TODO: Figure out the proper way to do this - I think you're suppose to implement a Class that implements the Interface
-			this.user = {firstName:'',lastName:'',username:''}; // Make a new user
+			this.user = {firstName:'',lastName:'',email:''}; // Make a new user
 		}
 	}
 	

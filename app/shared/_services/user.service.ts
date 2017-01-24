@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { AngularFire,FirebaseListObservable } from 'angularfire2';
+import { Logger } from './logger.service'
 import { User } from '../_models/user.model';
 import * as moment from 'moment'
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -22,7 +23,7 @@ export class UserService {
 	userList$: FirebaseListObservable<any>;
 	currentUser: ReplaySubject<any> = new ReplaySubject(1);
 	
-	constructor(private af: AngularFire) {
+	constructor(private af: AngularFire,private logger:Logger) {
 		this.initialize();
 	}
 	
@@ -45,7 +46,7 @@ export class UserService {
 	}
 	
 	loadCurrentUser(authData:any) {
-		console.log('loadCurrentUser',authData);
+		this.logger.log('loadCurrentUser',authData);
 		
 		this.getUser(authData.uid).subscribe((usrData:any) => {
 			console.log('set currentUser',usrData);
@@ -80,7 +81,8 @@ export class UserService {
 		};
 		
 		let providerMap:any = {
-			'3': 'google'
+			'2': 'facebook'
+			,'3': 'google'
 			,'4': 'firebase'
 		};
 		

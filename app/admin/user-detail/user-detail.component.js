@@ -31,7 +31,7 @@ var UserDetailComponent = (function () {
         }
         else {
             // TODO: Figure out the proper way to do this - I think you're suppose to implement a Class that implements the Interface
-            this.user = { firstName: '', lastName: '', username: '' }; // Make a new user
+            this.user = { firstName: '', lastName: '', email: '' }; // Make a new user
         }
     };
     UserDetailComponent.prototype.editUser = function () {
