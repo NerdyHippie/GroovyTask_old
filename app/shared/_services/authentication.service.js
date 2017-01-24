@@ -10,20 +10,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var angularfire2_1 = require('angularfire2');
+var alert_service_1 = require('./alert.service');
 var user_service_1 = require('./user.service');
 require('rxjs/add/operator/map');
 var AuthenticationService = (function () {
-    function AuthenticationService(af, usrSvc) {
+    function AuthenticationService(af, usrSvc, alertService) {
         this.af = af;
         this.usrSvc = usrSvc;
+        this.alertService = alertService;
         this.auth = af.auth;
     }
     ;
     AuthenticationService.prototype.loginWithEmail = function (username, password) {
+        var _this = this;
         this.af.auth.login({ email: username, password: password }, {
             provider: angularfire2_1.AuthProviders.Password,
             method: angularfire2_1.AuthMethods.Password,
-        });
+        })
+            .then(function (authData) { return _this.handleAuthSuccess(authData); })
+            .catch(function (authError) { return _this.handleAuthError(authError); });
         return this.af.auth;
     };
     AuthenticationService.prototype.loginWithFacebook = function () {
@@ -48,12 +53,13 @@ var AuthenticationService = (function () {
         return this.af.auth;
     };
     AuthenticationService.prototype.handleAuthSuccess = function (authData) {
-        console.log(authData);
+        console.log('firing handleAuthSuccess', authData);
+        this.usrSvc.setUserAccount(authData);
         this.usrSvc.loadCurrentUser(authData);
     };
     AuthenticationService.prototype.handleAuthError = function (authError) {
-        console.log(authError);
-        alert('error logging into facebook');
+        this.alertService.error(authError);
+        console.error('GroovyTask: Error authenticating user', authError);
     };
     AuthenticationService.prototype.logout = function () {
         this.af.auth.logout();
@@ -61,7 +67,7 @@ var AuthenticationService = (function () {
     };
     AuthenticationService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [angularfire2_1.AngularFire, user_service_1.UserService])
+        __metadata('design:paramtypes', [angularfire2_1.AngularFire, user_service_1.UserService, alert_service_1.AlertService])
     ], AuthenticationService);
     return AuthenticationService;
 }());

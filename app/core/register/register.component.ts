@@ -39,18 +39,19 @@ export class RegisterComponent {
     
     private registerSuccess(data:any) {
 			console.log('firebase reg success!',data);
-			this.model.uid = data.uid;
-			delete this.model.password;
+			data.auth.firstName = this.model.firstName;
+			data.auth.lastName = this.model.lastName;
 			
-			this.usrSvc.loadCurrentUser(this.model).then(() => {
+			
+			this.usrSvc.setUserAccount(data).then(() => {
 				console.log('acct created, reg finished');
 				this.alertService.success('Registration successful', true);
 				this.router.navigate(['/']);
 			});
 			
-			
 		}
 		private registerFailure(error:any) {
+			console.error('GroovyTask: Registration Failed',error);
 			this.alertService.error(error);
 			this.loading = false;
 		}

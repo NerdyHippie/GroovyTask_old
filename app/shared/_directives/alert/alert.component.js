@@ -9,28 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var index_1 = require('../../shared/_services/index');
-var HomeComponent = (function () {
-    function HomeComponent(userService) {
-        this.userService = userService;
-        this.currentUser = { email: '' };
+var index_1 = require('../../_services/index');
+var AlertComponent = (function () {
+    function AlertComponent(alertService) {
+        this.alertService = alertService;
     }
-    HomeComponent.prototype.ngOnInit = function () {
+    AlertComponent.prototype.ngOnInit = function () {
         var _this = this;
-        //this.currentUser$ = this.;
-        this.userService.currentUser.subscribe(function (data) {
-            _this.currentUser = data;
-        });
+        this.alertService.getMessage().subscribe(function (message) { _this.message = message; });
     };
-    HomeComponent = __decorate([
+    AlertComponent.prototype.clearAlert = function () {
+        this.alertService.clearMessage();
+    };
+    AlertComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            templateUrl: 'home.component.html',
-            styleUrls: ['home.component.css']
+            selector: 'alert',
+            templateUrl: 'alert.component.html',
+            styleUrls: ['alert.component.css']
         }), 
-        __metadata('design:paramtypes', [index_1.UserService])
-    ], HomeComponent);
-    return HomeComponent;
+        __metadata('design:paramtypes', [index_1.AlertService])
+    ], AlertComponent);
+    return AlertComponent;
 }());
-exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=home.component.js.map
+exports.AlertComponent = AlertComponent;
+//# sourceMappingURL=alert.component.js.map

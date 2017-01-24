@@ -45,9 +45,11 @@ export class LoginComponent implements OnInit {
 		}
 		
 		private handleLoginSuccess(data:any) {
+    	console.log('login success, data = ',data);
     	this.router.navigate([this.returnUrl]);
 		}
 		private handleLoginError(error:any) {
+    	console.log('login error', error);
 			this.alertService.error(error);
 			this.loading = false;
 		}

@@ -40,15 +40,16 @@ var RegisterComponent = (function () {
     RegisterComponent.prototype.registerSuccess = function (data) {
         var _this = this;
         console.log('firebase reg success!', data);
-        this.model.uid = data.uid;
-        delete this.model.password;
-        this.usrSvc.loadCurrentUser(this.model).then(function () {
+        data.auth.firstName = this.model.firstName;
+        data.auth.lastName = this.model.lastName;
+        this.usrSvc.setUserAccount(data).then(function () {
             console.log('acct created, reg finished');
             _this.alertService.success('Registration successful', true);
             _this.router.navigate(['/']);
         });
     };
     RegisterComponent.prototype.registerFailure = function (error) {
+        console.error('GroovyTask: Registration Failed', error);
         this.alertService.error(error);
         this.loading = false;
     };

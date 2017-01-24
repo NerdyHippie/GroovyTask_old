@@ -42,9 +42,11 @@ var LoginComponent = (function () {
             .subscribe(this.handleLoginSuccess.bind(this), this.handleLoginError.bind(this));
     };
     LoginComponent.prototype.handleLoginSuccess = function (data) {
+        console.log('login success, data = ', data);
         this.router.navigate([this.returnUrl]);
     };
     LoginComponent.prototype.handleLoginError = function (error) {
+        console.log('login error', error);
         this.alertService.error(error);
         this.loading = false;
     };

@@ -1,5 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { AngularFire,AngularFireAuth,AuthProviders,AuthMethods } from 'angularfire2';
+import { AlertService } from './alert.service';
 import { UserService } from './user.service';
 import 'rxjs/add/operator/map'
 
@@ -7,14 +8,18 @@ import 'rxjs/add/operator/map'
 export class AuthenticationService {
 		auth:AngularFireAuth;
 	
-    constructor(private af:AngularFire,private usrSvc:UserService) { this.auth = af.auth };
+    constructor(private af:AngularFire,private usrSvc:UserService,private alertService:AlertService) {
+    	this.auth = af.auth
+    };
 	
 		loginWithEmail(username:string,password:string) {
 			this.af.auth.login({email:username,password:password},
 				{
 					provider: AuthProviders.Password,
 					method: AuthMethods.Password,
-				});
+				})
+				.then((authData:any) => this.handleAuthSuccess(authData))
+				.catch((authError:any) => this.handleAuthError(authError));
 			
 			return this.af.auth;
 		}
@@ -44,12 +49,14 @@ export class AuthenticationService {
 		}
 		
 		handleAuthSuccess(authData:any) {
-			console.log(authData);
+			console.log('firing handleAuthSuccess',authData);
+			
+			this.usrSvc.setUserAccount(authData);
 			this.usrSvc.loadCurrentUser(authData);
 		}
 		handleAuthError(authError:any) {
-			console.log(authError);
-			alert('error logging into facebook');
+			this.alertService.error(authError);
+			console.error('GroovyTask: Error authenticating user',authError);
 		}
 		
 		logout() {

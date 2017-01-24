@@ -2,8 +2,8 @@ import { Component, Input, OnInit, OnChanges, OnDestroy, SimpleChanges } from '@
 import { Observable } from "rxjs/Observable";
 
 @Component({
-    moduleId: module.id,
-    selector: 'loading-message',
+    moduleId:    module.id,
+    selector:    'loading-message',
     templateUrl: 'loading-message.component.html'
 })
 export class LoadingMessageComponent implements OnInit,OnChanges,OnDestroy {

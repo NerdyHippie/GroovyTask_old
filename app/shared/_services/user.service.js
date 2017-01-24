@@ -11,19 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var angularfire2_1 = require('angularfire2');
 var moment = require('moment');
+var ReplaySubject_1 = require('rxjs/ReplaySubject');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/take');
 var UserService = (function () {
     function UserService(af) {
         this.af = af;
-        this.apples = 'Oranges';
+        this.currentUser = new ReplaySubject_1.ReplaySubject(1);
         this.initialize();
     }
     UserService.prototype.initialize = function () {
         this.userList$ = this.af.database.list('/users');
-    };
-    UserService.prototype.getTest = function (input) {
-        return "Test " + input;
     };
     UserService.prototype.cleanObj = function (input) {
         var invalidProps = ['$key', '$exists'];
@@ -39,29 +37,60 @@ var UserService = (function () {
         return this.af.database.object(path);
     };
     UserService.prototype.loadCurrentUser = function (authData) {
+        var _this = this;
         console.log('loadCurrentUser', authData);
-        var usrData = {
-            uid: authData.uid,
-            email: authData.auth.email,
-            displayName: authData.auth.displayName,
-            provider: authData.provider
-        };
-        return this.createUserAccount(usrData);
+        this.getUser(authData.uid).subscribe(function (usrData) {
+            console.log('set currentUser', usrData);
+            _this.currentUser.next(usrData);
+        });
+        /*let usrData:User = {
+            uid: authData.uid
+            ,email: authData.auth.email
+            ,displayName: authData.auth.displayName
+            ,provider: authData.provider
+        };*/
+        /*if (authData.provider == "1") {
+            console.log('provider is 1')
+            delete usrData.displayName;
+            
+        }*/
+        return this.currentUser;
     };
-    UserService.prototype.createUserAccount = function (userData) {
-        console.log('create account', userData);
-        var uid = userData.uid;
-        delete userData.uid;
-        var usr = this.af.database.object('/users/' + uid);
+    UserService.prototype.setUserAccount = function (authData) {
+        console.log('set account', authData);
+        var providerData = authData.auth.providerData[0];
+        var userData = {
+            uid: authData.uid,
+            email: providerData.email,
+            providerId: providerData.providerId,
+            lastLogin: moment().format(),
+            providerUid: providerData.uid
+        };
+        var providerMap = {
+            '3': 'google',
+            '4': 'firebase'
+        };
+        if (providerData.providerId != 'password') {
+            userData.displayName = providerData.displayName || null;
+            userData.photoURL = providerData.photoURL || null;
+        }
+        else {
+            if (authData.auth.firstName)
+                userData.firstName = authData.auth.firstName;
+            if (authData.auth.lastName)
+                userData.lastName = authData.auth.lastName;
+        }
+        var usr = this.getUser(userData.uid);
         var usr$ = usr.subscribe(function (user) {
-            console.log('usr exists?', user.$exists());
-            if (!user.$exists()) {
+            console.log('usr exists?', user.$exists(), usr);
+            if (!user.$exists() || !user.dateCreated) {
                 console.info('add dateCreated', moment().format());
                 userData.dateCreated = moment().format();
+                usr.set(userData);
             }
             usr$.unsubscribe();
-            return usr.set(userData);
         });
+        return usr.update(userData);
     };
     UserService = __decorate([
         core_1.Injectable(), 

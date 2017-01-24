@@ -11,16 +11,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var common_1 = require('@angular/common');
 var forms_1 = require('@angular/forms');
-var loading_message_component_1 = require('./loading-message/loading-message.component');
+var index_1 = require('./_directives/index');
+exports.sharedComponents = [index_1.AlertComponent, index_1.LoadingMessageComponent];
 var SharedModule = (function () {
     function SharedModule() {
     }
     SharedModule = __decorate([
         core_1.NgModule({
             imports: [common_1.CommonModule, forms_1.FormsModule],
-            declarations: [loading_message_component_1.LoadingMessageComponent],
+            declarations: [exports.sharedComponents],
             exports: [
-                common_1.CommonModule, forms_1.FormsModule, loading_message_component_1.LoadingMessageComponent]
+                common_1.CommonModule, forms_1.FormsModule, exports.sharedComponents]
         }), 
         __metadata('design:paramtypes', [])
     ], SharedModule);
