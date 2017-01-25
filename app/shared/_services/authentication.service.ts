@@ -4,13 +4,21 @@ import { AngularFire,AngularFireAuth,AuthProviders,AuthMethods } from 'angularfi
 import { AlertService } from './alert.service';
 import { UserService } from './user.service';
 import { Logger } from "./logger.service";
+
+import * as firebase from 'firebase';
 import 'rxjs/add/operator/map'
 
 @Injectable()
 export class AuthenticationService {
 		auth:AngularFireAuth;  // Store the AngularFire auth in a service variable so that we can use it in components, etc.
-	
-    constructor(private af:AngularFire,private router:Router,private usrSvc:UserService,private alertService:AlertService,private logger:Logger) {
+		
+		constructor(
+			private af:AngularFire,
+			private router:Router,
+			private usrSvc:UserService,
+			private alertService:AlertService,
+			private logger:Logger
+		) {
     	this.auth = af.auth;
     	
 			af.auth.subscribe((authData) => {
@@ -59,5 +67,9 @@ export class AuthenticationService {
 		logout() {
 			this.af.auth.logout();
 			return this.af.auth;
+		}
+	
+		resetPassword(email:string): any{
+			return firebase.auth().sendPasswordResetEmail(email);
 		}
 }

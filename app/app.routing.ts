@@ -8,6 +8,7 @@ import { CalendarComponent } from './core/calendar/calendar.component';
 import { LoginComponent } from './core/login/login.component';
 import { LogoutComponent } from './core/logout/logout.component';
 import { RegisterComponent } from './core/register/register.component';
+import { ResetPasswordComponent } from './core/reset-password/reset-password.component';
 
 const appRoutes: Routes = [
     {
@@ -27,8 +28,11 @@ const appRoutes: Routes = [
     },{
         path: 'register'
         ,component: RegisterComponent
+    },{
+        path: 'reset'
+        ,component: ResetPasswordComponent
     }
 ];
 
-export const AppRoutingComponents = [HomeComponent,CalendarComponent,LoginComponent,LogoutComponent,RegisterComponent];
+export const AppRoutingComponents = [HomeComponent,CalendarComponent,LoginComponent,LogoutComponent,RegisterComponent,ResetPasswordComponent];
 export const AppRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);

@@ -14,6 +14,7 @@ var angularfire2_1 = require('angularfire2');
 var alert_service_1 = require('./alert.service');
 var user_service_1 = require('./user.service');
 var logger_service_1 = require("./logger.service");
+var firebase = require('firebase');
 require('rxjs/add/operator/map');
 var AuthenticationService = (function () {
     function AuthenticationService(af, router, usrSvc, alertService, logger) {
@@ -64,6 +65,9 @@ var AuthenticationService = (function () {
     AuthenticationService.prototype.logout = function () {
         this.af.auth.logout();
         return this.af.auth;
+    };
+    AuthenticationService.prototype.resetPassword = function (email) {
+        return firebase.auth().sendPasswordResetEmail(email);
     };
     AuthenticationService = __decorate([
         core_1.Injectable(), 
