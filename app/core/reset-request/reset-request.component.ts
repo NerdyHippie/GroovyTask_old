@@ -7,12 +7,12 @@ export interface ResetModel {
 }
 
 @Component({
-    moduleId: module.id,
-    selector: 'reset-password',
-    templateUrl: 'reset-password.component.html'
+    moduleId:    module.id,
+    selector:    'reset-request',
+    templateUrl: 'reset-request.component.html'
 })
 
-export class ResetPasswordComponent implements OnInit {
+export class ResetRequestComponent implements OnInit {
 		model:ResetModel = {email:''};
 	
     constructor(
@@ -22,9 +22,9 @@ export class ResetPasswordComponent implements OnInit {
 
     ngOnInit() { }
     
-    resetPassword(model:ResetModel) {
+    requestReset(model:ResetModel) {
     	console.log('reset password',model);
-    	this.authenticationService.resetPassword(model.email).then((data:any) => {
+    	this.authenticationService.requestReset(model.email).then((data:any) => {
     		console.log('reset data',data);
 				this.router.navigate(['/login']);
 			}).catch((error:any) => console.error('reset error',error));

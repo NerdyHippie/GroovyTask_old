@@ -66,7 +66,7 @@ var AuthenticationService = (function () {
         this.af.auth.logout();
         return this.af.auth;
     };
-    AuthenticationService.prototype.resetPassword = function (email) {
+    AuthenticationService.prototype.requestReset = function (email) {
         return firebase.auth().sendPasswordResetEmail(email);
     };
     AuthenticationService = __decorate([

@@ -69,7 +69,7 @@ export class AuthenticationService {
 			return this.af.auth;
 		}
 	
-		resetPassword(email:string): any{
+		requestReset(email:string): any{
 			return firebase.auth().sendPasswordResetEmail(email);
 		}
 }

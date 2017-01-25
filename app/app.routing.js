@@ -6,7 +6,8 @@ var calendar_component_1 = require('./core/calendar/calendar.component');
 var login_component_1 = require('./core/login/login.component');
 var logout_component_1 = require('./core/logout/logout.component');
 var register_component_1 = require('./core/register/register.component');
-var reset_password_component_1 = require('./core/reset-password/reset-password.component');
+var reset_request_component_1 = require('./core/reset-request/reset-request.component');
+var email_action_component_1 = require('./core/email-action/email-action.component');
 var appRoutes = [
     {
         path: '',
@@ -27,9 +28,12 @@ var appRoutes = [
         component: register_component_1.RegisterComponent
     }, {
         path: 'reset',
-        component: reset_password_component_1.ResetPasswordComponent
+        component: reset_request_component_1.ResetRequestComponent
+    }, {
+        path: 'emailAction',
+        component: email_action_component_1.EmailActionComponent
     }
 ];
-exports.AppRoutingComponents = [home_component_1.HomeComponent, calendar_component_1.CalendarComponent, login_component_1.LoginComponent, logout_component_1.LogoutComponent, register_component_1.RegisterComponent, reset_password_component_1.ResetPasswordComponent];
+exports.AppRoutingComponents = [home_component_1.HomeComponent, calendar_component_1.CalendarComponent, login_component_1.LoginComponent, logout_component_1.LogoutComponent, register_component_1.RegisterComponent, reset_request_component_1.ResetRequestComponent, email_action_component_1.EmailActionComponent];
 exports.AppRouting = router_1.RouterModule.forRoot(appRoutes);
 //# sourceMappingURL=app.routing.js.map
