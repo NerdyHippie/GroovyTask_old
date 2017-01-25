@@ -62,8 +62,8 @@ export class EmailActionComponent implements OnInit {
 		}
 	
 		handleResetPassword() {
-			console.log('handle ResetPassword');
-    	this.auth.verifyPasswordResetCode(this.actionCode).then((email:string) => {
+			console.log('handle ResetPassword',this.actionCode);
+    	this.auth.verifyPasswordResetCode(this.actionCode).then((email:any) => {
     		this.accountEmail = email;
     		this.showPasswordForm = true;
 			}).catch();

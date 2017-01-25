@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "groovytask-dev"
+    "staging": "groovytask-dev",
+    "production": "groovytask"
   }
 }

@@ -12,6 +12,8 @@
     "test-once": "tsc && karma start karma.conf.js --single-run",
     "tsc": "tsc",
     "tsc:w": "tsc -w"
+		,"deploy-staging": "firebase deploy --project staging"
+		,"deploy-production": "firebase deploy --project production"
   },
   "keywords": [],
   "author": "NerdyHippie, LLC",

@@ -54,7 +54,7 @@ var EmailActionComponent = (function () {
     };
     EmailActionComponent.prototype.handleResetPassword = function () {
         var _this = this;
-        console.log('handle ResetPassword');
+        console.log('handle ResetPassword', this.actionCode);
         this.auth.verifyPasswordResetCode(this.actionCode).then(function (email) {
             _this.accountEmail = email;
             _this.showPasswordForm = true;
