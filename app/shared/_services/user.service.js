@@ -71,6 +71,8 @@ var UserService = (function () {
                 userData.firstName = authData.auth.firstName;
             if (authData.auth.lastName)
                 userData.lastName = authData.auth.lastName;
+            // TODO: Make sure this isn't resetting on every login if user has set it
+            userData.photoURL = 'http://simpleicon.com/wp-content/uploads/user1.png';
         }
         var usr = this.getUser(userData.uid);
         var usr$ = usr.subscribe(function (user) {

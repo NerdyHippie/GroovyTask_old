@@ -6,6 +6,7 @@ import { UserService } from '../../shared/_services/user.service';
     moduleId: module.id,
     selector: 'user-manager',
     templateUrl: 'user-manager.component.html'
+		,styleUrls: ['user-manager.component.css']
 })
 export class UserManagerComponent implements OnInit {
 		users: Array<User>;

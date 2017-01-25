@@ -28,7 +28,8 @@ var UserManagerComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'user-manager',
-            templateUrl: 'user-manager.component.html'
+            templateUrl: 'user-manager.component.html',
+            styleUrls: ['user-manager.component.css']
         }), 
         __metadata('design:paramtypes', [user_service_1.UserService])
     ], UserManagerComponent);
