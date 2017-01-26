@@ -55,6 +55,14 @@ export class LoginComponent implements OnInit {
 			this.loading = true;
 			this.authenticationService.loginWithGoogle();
 		}
+		loginWithTwitter() {
+			this.loading = true;
+			this.authenticationService.loginWithTwitter();
+		}
+		loginWithGithub() {
+			this.loading = true;
+			this.authenticationService.loginWithGithub();
+		}
 		
 		private handleLoginSuccess(data:any) {
     	this.router.navigate([this.returnUrl]);

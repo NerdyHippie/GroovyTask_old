@@ -13,7 +13,7 @@ var Logger = (function () {
     function Logger() {
         this.logs = []; // capture logs for testing
         this.errors = [];
-        this.debugMode = false;
+        this.debugMode = true;
     }
     Logger.prototype.log = function (message) {
         var params = [];

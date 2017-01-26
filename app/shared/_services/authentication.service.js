@@ -57,9 +57,20 @@ var AuthenticationService = (function () {
         });
     };
     AuthenticationService.prototype.loginWithGoogle = function () {
-        //console.log('login with Google');
         return this.af.auth.login({
             provider: angularfire2_1.AuthProviders.Google,
+            method: angularfire2_1.AuthMethods.Popup,
+        });
+    };
+    AuthenticationService.prototype.loginWithTwitter = function () {
+        return this.af.auth.login({
+            provider: angularfire2_1.AuthProviders.Twitter,
+            method: angularfire2_1.AuthMethods.Popup,
+        });
+    };
+    AuthenticationService.prototype.loginWithGithub = function () {
+        return this.af.auth.login({
+            provider: angularfire2_1.AuthProviders.Github,
             method: angularfire2_1.AuthMethods.Popup,
         });
     };

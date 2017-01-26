@@ -55,10 +55,23 @@ export class AuthenticationService {
 				});
 		}
 		loginWithGoogle() {
-			//console.log('login with Google');
 			return this.af.auth.login(
 				{
 					provider: AuthProviders.Google,
+					method: AuthMethods.Popup,
+				});
+		}
+		loginWithTwitter() {
+			return this.af.auth.login(
+				{
+					provider: AuthProviders.Twitter,
+					method: AuthMethods.Popup,
+				});
+		}
+		loginWithGithub() {
+			return this.af.auth.login(
+				{
+					provider: AuthProviders.Github,
 					method: AuthMethods.Popup,
 				});
 		}

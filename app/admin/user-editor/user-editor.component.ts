@@ -43,7 +43,6 @@ export class UserEditorComponent extends UserDetailComponent implements OnInit,O
 	updateUser() {
 		this.savedUser = { key: this.user.$key };
 		this.usrSvc.getUser(this.user.$key).set(this.usrSvc.cleanObj(this.user)).then(this.openDetail.bind(this));
-		
 	}
 	
 	openDetail() {

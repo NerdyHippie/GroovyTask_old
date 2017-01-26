@@ -24,6 +24,14 @@ const appRoutes: Routes = [
         ,component: CalendarComponent
 				,canActivate: [ AuthGuard ]
     },{
+				path: 'profile/:id'
+				,component: UserDetailComponent
+				,canActivate: [ AuthGuard ]
+		},{
+				path: 'profile/edit/:id'
+				,component: UserEditorComponent
+				,canActivate: [ AuthGuard ]
+		},{
         path: 'login'
         ,component: LoginComponent
     },{
@@ -40,12 +48,6 @@ const appRoutes: Routes = [
         ,component: EmailActionComponent
 				,pathMatch: 'prefix'
     },{
-				path: 'profile/:id'
-				,component: UserDetailComponent
-		},{
-				path: 'profile/edit/:id'
-				,component: UserEditorComponent
-		},{
 				path: 'print-test'
 				,component: PrintTestComponent
 		}

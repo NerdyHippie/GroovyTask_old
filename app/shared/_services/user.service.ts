@@ -52,17 +52,29 @@ export class UserService {
 		return this.currentUser
 	}
 	
+	makeProviderObj(providerData:Array<any>) {
+		let ret = {};
+		for (let item of providerData) {
+			ret[item.providerId.replace('.com','')] = item.uid;
+		}
+		console.log('makeProviderObj',ret);
+		return ret;
+	}
+	
 	setUserAccount(authData:any) {
 		this.logger.log('set account',authData);
 		
-		let providerData = authData.auth.providerData[0];
+		let providerData = authData.auth.providerData; //[0];
 		
 		let userData:any = {
 			uid: authData.uid
-			,email: providerData.email
-			,providerId: providerData.providerId
+			,email: authData.auth.email
+			//,providerId: providerData.providerId
 			,lastLogin: moment().format()
-			,providerUid: providerData.uid
+			//,providerUid: providerData.uid
+			,providers: this.makeProviderObj(authData.auth.providerData)
+			,photoURL: authData.auth.photoURL || 'http://simpleicon.com/wp-content/uploads/user1.png'
+			,displayName: authData.auth.displayName
 		};
 		
 		/* Ended up not needing this, but it's handy to know...
@@ -72,15 +84,9 @@ export class UserService {
 			,'4': 'firebase'
 		};*/
 		
-		if (providerData.providerId != 'password') {
-			userData.displayName = providerData.displayName || null;
-			userData.photoURL = providerData.photoURL || null;
-		} else {
-			if (authData.auth.firstName) userData.firstName = authData.auth.firstName;
-			if (authData.auth.lastName) userData.lastName = authData.auth.lastName;
-			// TODO: Make sure this isn't resetting on every login if user has set it
-			userData.photoURL = 'http://simpleicon.com/wp-content/uploads/user1.png';
-		}
+		
+		if (authData.auth.firstName) userData.firstName = authData.auth.firstName;
+		if (authData.auth.lastName) userData.lastName = authData.auth.lastName;
 		
 		let usr = this.getUser(userData.uid);
 				

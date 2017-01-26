@@ -10,6 +10,7 @@ import { User } from "../../shared/_models/user.model";
     moduleId:    module.id,
     selector:    'nav-bar',
     templateUrl: './nav-bar.component.html'
+	,styleUrls: ['nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
 		private loggedIn:Boolean = false;
@@ -24,7 +25,7 @@ export class NavBarComponent implements OnInit {
    	}
     
    	getProfileLink() {
-    	return this.currentUser ? '/profile/'+this.currentUser.uid : '';
+    	return this.currentUser ? this.currentUser.uid : '';
 		}
    	
     toggleCollapse() {

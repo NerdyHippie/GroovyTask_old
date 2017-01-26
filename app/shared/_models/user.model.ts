@@ -9,4 +9,5 @@ export interface User {
 	provider?: String
 	dateCreated?: String
 	admin?: Boolean
+	providers?: any
 }

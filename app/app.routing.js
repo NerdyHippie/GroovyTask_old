@@ -21,6 +21,14 @@ var appRoutes = [
         component: calendar_component_1.CalendarComponent,
         canActivate: [auth_guard_1.AuthGuard]
     }, {
+        path: 'profile/:id',
+        component: user_detail_component_1.UserDetailComponent,
+        canActivate: [auth_guard_1.AuthGuard]
+    }, {
+        path: 'profile/edit/:id',
+        component: user_editor_component_1.UserEditorComponent,
+        canActivate: [auth_guard_1.AuthGuard]
+    }, {
         path: 'login',
         component: login_component_1.LoginComponent
     }, {
@@ -36,12 +44,6 @@ var appRoutes = [
         path: 'emailAction',
         component: email_action_component_1.EmailActionComponent,
         pathMatch: 'prefix'
-    }, {
-        path: 'profile/:id',
-        component: user_detail_component_1.UserDetailComponent
-    }, {
-        path: 'profile/edit/:id',
-        component: user_editor_component_1.UserEditorComponent
     }, {
         path: 'print-test',
         component: print_test_component_1.PrintTestComponent

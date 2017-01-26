@@ -45,16 +45,26 @@ var UserService = (function () {
         });
         return this.currentUser;
     };
+    UserService.prototype.makeProviderObj = function (providerData) {
+        var ret = {};
+        for (var _i = 0, providerData_1 = providerData; _i < providerData_1.length; _i++) {
+            var item = providerData_1[_i];
+            ret[item.providerId.replace('.com', '')] = item.uid;
+        }
+        console.log('makeProviderObj', ret);
+        return ret;
+    };
     UserService.prototype.setUserAccount = function (authData) {
         var _this = this;
         this.logger.log('set account', authData);
-        var providerData = authData.auth.providerData[0];
+        var providerData = authData.auth.providerData; //[0];
         var userData = {
             uid: authData.uid,
-            email: providerData.email,
-            providerId: providerData.providerId,
+            email: authData.auth.email,
             lastLogin: moment().format(),
-            providerUid: providerData.uid
+            providers: this.makeProviderObj(authData.auth.providerData),
+            photoURL: authData.auth.photoURL || 'http://simpleicon.com/wp-content/uploads/user1.png',
+            displayName: authData.auth.displayName
         };
         /* Ended up not needing this, but it's handy to know...
         let providerMap:any = {
@@ -62,18 +72,10 @@ var UserService = (function () {
             ,'3': 'google'
             ,'4': 'firebase'
         };*/
-        if (providerData.providerId != 'password') {
-            userData.displayName = providerData.displayName || null;
-            userData.photoURL = providerData.photoURL || null;
-        }
-        else {
-            if (authData.auth.firstName)
-                userData.firstName = authData.auth.firstName;
-            if (authData.auth.lastName)
-                userData.lastName = authData.auth.lastName;
-            // TODO: Make sure this isn't resetting on every login if user has set it
-            userData.photoURL = 'http://simpleicon.com/wp-content/uploads/user1.png';
-        }
+        if (authData.auth.firstName)
+            userData.firstName = authData.auth.firstName;
+        if (authData.auth.lastName)
+            userData.lastName = authData.auth.lastName;
         var usr = this.getUser(userData.uid);
         var usr$ = usr.subscribe(function (user) {
             _this.logger.log('usr exists?', user.$exists(), usr);

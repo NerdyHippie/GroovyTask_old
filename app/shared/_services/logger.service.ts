@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 export class Logger {
 	logs: string[] = []; // capture logs for testing
 	errors: string[] = [];
-	debugMode:Boolean = false;
+	debugMode:Boolean = true;
 
 	log(message: string, ...params:Array<any>):void {
 		if (this.debugMode) {

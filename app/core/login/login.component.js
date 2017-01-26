@@ -49,6 +49,14 @@ var LoginComponent = (function () {
         this.loading = true;
         this.authenticationService.loginWithGoogle();
     };
+    LoginComponent.prototype.loginWithTwitter = function () {
+        this.loading = true;
+        this.authenticationService.loginWithTwitter();
+    };
+    LoginComponent.prototype.loginWithGithub = function () {
+        this.loading = true;
+        this.authenticationService.loginWithGithub();
+    };
     LoginComponent.prototype.handleLoginSuccess = function (data) {
         this.router.navigate([this.returnUrl]);
         this.loading = false;

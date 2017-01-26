@@ -1,0 +1,14 @@
+h3 {
+  color: blue;
+}
+@media print {
+  .print-container {
+    font-size: 1.3em;
+  }
+  .print-container section {
+    page-break-after: always;
+  }
+  .print-container h3 {
+    border: 2px solid rgba(255, 0, 0, 0.5);
+  }
+}

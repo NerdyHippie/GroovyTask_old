@@ -29,7 +29,7 @@ var NavBarComponent = (function () {
         this.userService.currentUser.subscribe(function (data) { return _this.currentUser = data; });
     };
     NavBarComponent.prototype.getProfileLink = function () {
-        return this.currentUser ? '/profile/' + this.currentUser.uid : '';
+        return this.currentUser ? this.currentUser.uid : '';
     };
     NavBarComponent.prototype.toggleCollapse = function () {
         this.isCollapsed = !this.isCollapsed;
@@ -46,7 +46,8 @@ var NavBarComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'nav-bar',
-            templateUrl: './nav-bar.component.html'
+            templateUrl: './nav-bar.component.html',
+            styleUrls: ['nav-bar.component.css']
         }), 
         __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, user_service_1.UserService, angularfire2_1.AngularFire, router_1.Router])
     ], NavBarComponent);

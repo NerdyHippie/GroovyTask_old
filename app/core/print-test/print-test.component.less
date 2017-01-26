@@ -1,4 +1,21 @@
+@import "../../../mixins/palette";
+
+h3 {
+	color: blue;
+}
+
 @media print {
-	font-family: 'Times New Roman',serif;
+	.print-container {
+		//font-family: 'Times New Roman',serif;
+		font-size: 1.3em;
+		
+		section {
+			page-break-after: always;
+		}
+		
+		h3 {
+			border: 2px solid @red50;
+		}
+	}
 	
 }
