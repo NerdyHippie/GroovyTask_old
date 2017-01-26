@@ -12,15 +12,15 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var user_service_1 = require('../../shared/_services/user.service');
 var UserDetailComponent = (function () {
-    function UserDetailComponent(usrSvc, route, router) {
+    function UserDetailComponent(usrSvc, activatedRoute, router) {
         this.usrSvc = usrSvc;
-        this.route = route;
+        this.activatedRoute = activatedRoute;
         this.router = router;
     }
     UserDetailComponent.prototype.ngOnInit = function () {
         var _this = this;
         // Pass the routeParams data over to loadUser()
-        this.routeParams$ = this.route.params.subscribe(function (params) { return _this.loadUser(params); });
+        this.routeParams$ = this.activatedRoute.params.subscribe(function (params) { return _this.loadUser(params); });
     };
     UserDetailComponent.prototype.loadUser = function (params) {
         this.user = undefined; // Start out setting this.user to undefined so that the directive content disappears
@@ -35,10 +35,17 @@ var UserDetailComponent = (function () {
         }
     };
     UserDetailComponent.prototype.editUser = function () {
-        this.router.navigate(['/admin/users/edit/' + this.user.$key]);
+        this.router.navigate(['../edit/' + this.user.$key], { relativeTo: this.activatedRoute });
     };
     UserDetailComponent.prototype.popUser = function (usrData) {
         this.user = usrData;
+    };
+    UserDetailComponent.prototype.allowEdit = function () {
+        var canEdit = false;
+        if (1 == 1) {
+            canEdit = true;
+        }
+        return canEdit;
     };
     UserDetailComponent.prototype.ngOnDestroy = function () {
         if (this.routeParams$) {

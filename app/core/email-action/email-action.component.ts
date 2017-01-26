@@ -60,7 +60,10 @@ export class EmailActionComponent implements OnInit {
 		handleResetPassword() {
     	this.auth.verifyPasswordResetCode(this.actionCode)
 				.then((email:any) => this.accountEmail = email)
-				.catch((error:any) => this.alertService.error(error.message));
+				.catch((error:any) => {
+					this.alertService.error(error.message);
+					console.error('GroovyTask: Error in verifyPasswordResetCode',error);
+				});
 		}
 		
 		doPasswordReset(newPassword:string) {
@@ -68,7 +71,10 @@ export class EmailActionComponent implements OnInit {
 			this.auth.confirmPasswordReset(this.actionCode, newPassword)
 				.then((resp:any) => this.auth.signInWithEmailAndPassword(this.accountEmail, newPassword)
 						.then(this.router.navigate(['/'])))
-				.catch((error:any) => this.alertService.error(error.message));
+				.catch((error:any) => {
+					this.alertService.error(error.message);
+					console.error('GroovyTask: Error in confirmPasswordReset',error);
+				});
 				
 		}
 	

@@ -19,9 +19,18 @@ var user_detail_component_1 = require('../user-detail/user-detail.component');
 var user_service_1 = require('../../shared/_services/user.service');
 var UserEditorComponent = (function (_super) {
     __extends(UserEditorComponent, _super);
-    function UserEditorComponent(usrSvc, route, router) {
-        _super.call(this, usrSvc, route, router);
+    function UserEditorComponent(userService, activatedRoute, router) {
+        _super.call(this, userService, activatedRoute, router);
+        this.userService = userService;
+        this.activatedRoute = activatedRoute;
+        this.router = router;
+        this.showLinkOptions = false;
     }
+    UserEditorComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.routeParams$ = this.activatedRoute.params.subscribe(function (params) { return _this.loadUser(params); });
+        this.userService.currentUser.subscribe(function (data) { return _this.currentUser = data; });
+    };
     UserEditorComponent.prototype.saveUser = function () {
         this.user.$key ? this.updateUser() : this.createUser();
     };
@@ -41,7 +50,13 @@ var UserEditorComponent = (function (_super) {
         this.usrSvc.getUser(this.user.$key).set(this.usrSvc.cleanObj(this.user)).then(this.openDetail.bind(this));
     };
     UserEditorComponent.prototype.openDetail = function () {
-        this.router.navigate(['/admin/users/' + this.savedUser.key]);
+        this.router.navigate(['../../' + this.savedUser.key]);
+    };
+    UserEditorComponent.prototype.showLinkButton = function () {
+        return this.currentUser ? (this.currentUser.admin || this.currentUser.uid == this.id) : false;
+    };
+    UserEditorComponent.prototype.toggleLinkOptions = function () {
+        this.showLinkOptions = !this.showLinkOptions;
     };
     UserEditorComponent.prototype.archiveUser = function () {
         // TODO: Archive User

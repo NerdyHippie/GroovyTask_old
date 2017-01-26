@@ -8,4 +8,5 @@ export interface User {
 	photoURL?: String
 	provider?: String
 	dateCreated?: String
+	admin?: Boolean
 }

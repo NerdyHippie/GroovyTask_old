@@ -2,6 +2,7 @@ import { Component, OnInit,OnDestroy } from '@angular/core';
 import { Router,ActivatedRoute } from '@angular/router';
 import { UserDetailComponent } from '../user-detail/user-detail.component';
 import { UserService } from '../../shared/_services/user.service';
+import { User } from '../../shared/_models/user.model';
 
 @Component({
 	moduleId: module.id,
@@ -10,9 +11,16 @@ import { UserService } from '../../shared/_services/user.service';
 })
 export class UserEditorComponent extends UserDetailComponent implements OnInit,OnDestroy {
   savedUser: any;
+  currentUser: User;
+  showLinkOptions: Boolean = false;
 	
-	constructor(usrSvc:UserService,route:ActivatedRoute,router:Router) {
-  	super(usrSvc,route,router);
+	constructor(public userService:UserService, public activatedRoute:ActivatedRoute, public router:Router) {
+  	super(userService,activatedRoute,router);
+	}
+	
+	ngOnInit() {
+		this.routeParams$ = this.activatedRoute.params.subscribe(params => this.loadUser(params));
+		this.userService.currentUser.subscribe((data:any) => this.currentUser = data);
 	}
 	
 	saveUser() {
@@ -39,7 +47,15 @@ export class UserEditorComponent extends UserDetailComponent implements OnInit,O
 	}
 	
 	openDetail() {
-		this.router.navigate(['/admin/users/'+this.savedUser.key]);
+		this.router.navigate(['../../'+this.savedUser.key]);
+	}
+	
+	showLinkButton() {
+		return this.currentUser ? (this.currentUser.admin || this.currentUser.uid == this.id) : false;
+	}
+	
+	toggleLinkOptions() {
+		this.showLinkOptions = !this.showLinkOptions;
 	}
 	
 	archiveUser() {

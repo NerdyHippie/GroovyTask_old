@@ -16,6 +16,7 @@ var angularfire2_1 = require('angularfire2');
 var shared_module_1 = require('../shared/shared.module');
 var admin_routing_1 = require('./admin.routing');
 var user_manager_component_1 = require('./user-manager/user-manager.component');
+var link_account_component_1 = require('./link-account/link-account.component');
 var AdminModule = (function () {
     function AdminModule() {
     }
@@ -23,7 +24,7 @@ var AdminModule = (function () {
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, common_1.CommonModule, forms_1.FormsModule, angularfire2_1.AngularFireModule, admin_routing_1.AdminRouting,
                 shared_module_1.SharedModule],
-            declarations: [admin_routing_1.AdminRouteComponents, user_manager_component_1.UserManagerComponent],
+            declarations: [admin_routing_1.AdminRouteComponents, user_manager_component_1.UserManagerComponent, link_account_component_1.LinkAccountComponent],
             exports: [
                 platform_browser_1.BrowserModule, common_1.CommonModule, forms_1.FormsModule]
         }), 

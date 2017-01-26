@@ -2,11 +2,14 @@
 	<h1>Home</h1>
 	Next Steps:
 	<ol>
-		<li class="done">Register with Email and Password</li>
-		<li>Handle Errors in login</li>
-		<li>Create User Account <span class="done">upon registration</span> and/or login with social provider</li>
-		<li>On Login, get User Profile info and persist to a variable in UserService (make sure this updates and doesn't habe to be an observable or anything)</li>
-		<li>Useraa Rights - lock down admin route for non-admin users</li>
+		<li>User Rights - lock down admin route for non-admin users
+			<ul>
+				<li>Lock down edit button on userDetail so that canEdit is isAdmin or currentUser.uid = uid</li>
+			</ul>
+		</li>
+		<li>Link Accounts - <a href="https://firebase.google.com/docs/auth/web/account-linking" target="_blank">https://firebase.google.com/docs/auth/web/account-linking</a></li>
+		<li>Password recover</li>
+		<li>Email Verification</li>
 	</ol>
 	<pre>currentUser:
 {{currentUser | json}}

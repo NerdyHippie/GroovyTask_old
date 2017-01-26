@@ -10,6 +10,9 @@ import { LogoutComponent } from './core/logout/logout.component';
 import { RegisterComponent } from './core/register/register.component';
 import { ResetRequestComponent } from './core/reset-request/reset-request.component';
 import { EmailActionComponent } from './core/email-action/email-action.component';
+import { UserDetailComponent } from './admin/user-detail/user-detail.component';
+import { UserEditorComponent } from './admin/user-editor/user-editor.component';
+import { PrintTestComponent }  from './core/print-test/print-test.component';
 
 const appRoutes: Routes = [
     {
@@ -36,8 +39,17 @@ const appRoutes: Routes = [
         path: 'emailAction'
         ,component: EmailActionComponent
 				,pathMatch: 'prefix'
-    }
+    },{
+				path: 'profile/:id'
+				,component: UserDetailComponent
+		},{
+				path: 'profile/edit/:id'
+				,component: UserEditorComponent
+		},{
+				path: 'print-test'
+				,component: PrintTestComponent
+		}
 ];
 
-export const AppRoutingComponents = [HomeComponent,CalendarComponent,LoginComponent,LogoutComponent,RegisterComponent,ResetRequestComponent,EmailActionComponent];
+export const AppRoutingComponents = [HomeComponent,CalendarComponent,LoginComponent,LogoutComponent,RegisterComponent,ResetRequestComponent,EmailActionComponent,PrintTestComponent];
 export const AppRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);

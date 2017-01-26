@@ -1,6 +1,8 @@
 <loading-message [waitFor]="user" [message]="'Loading User Editor'"></loading-message>
 
 <div *ngIf="user">
+	<button class="btn btn-default" *ngIf="showLinkButton()" (click)="toggleLinkOptions()" [class.active]="showLinkOptions">Link Social Media Accounts</button>
+	<link-account *ngIf="showLinkOptions"></link-account>
 	<h3><span *ngIf="user.$key">Edit</span><span *ngIf="!user.$key">Create</span> User</h3>
 	<form (submit)="saveUser()">
 		<div class="form-group">

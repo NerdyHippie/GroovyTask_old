@@ -52,7 +52,10 @@ var EmailActionComponent = (function () {
         var _this = this;
         this.auth.verifyPasswordResetCode(this.actionCode)
             .then(function (email) { return _this.accountEmail = email; })
-            .catch(function (error) { return _this.alertService.error(error.message); });
+            .catch(function (error) {
+            _this.alertService.error(error.message);
+            console.error('GroovyTask: Error in verifyPasswordResetCode', error);
+        });
     };
     EmailActionComponent.prototype.doPasswordReset = function (newPassword) {
         var _this = this;
@@ -60,7 +63,10 @@ var EmailActionComponent = (function () {
         this.auth.confirmPasswordReset(this.actionCode, newPassword)
             .then(function (resp) { return _this.auth.signInWithEmailAndPassword(_this.accountEmail, newPassword)
             .then(_this.router.navigate(['/'])); })
-            .catch(function (error) { return _this.alertService.error(error.message); });
+            .catch(function (error) {
+            _this.alertService.error(error.message);
+            console.error('GroovyTask: Error in confirmPasswordReset', error);
+        });
     };
     EmailActionComponent.prototype.handleRecoverEmail = function () {
         /*var restoredEmail = null;

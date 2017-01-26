@@ -12,17 +12,24 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var angularfire2_1 = require('angularfire2');
 var authentication_service_1 = require('../../shared/_services/authentication.service');
+var user_service_1 = require('../../shared/_services/user.service');
 var NavBarComponent = (function () {
-    function NavBarComponent(authSvc, af, router) {
+    function NavBarComponent(authSvc, userService, af, router) {
         this.authSvc = authSvc;
+        this.userService = userService;
         this.af = af;
         this.router = router;
         this.loggedIn = false;
         this.isCollapsed = true;
+        this.currentUser = null;
     }
     NavBarComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.af.auth.subscribe(function (auth) { return _this.loggedIn = auth ? true : false; });
+        this.userService.currentUser.subscribe(function (data) { return _this.currentUser = data; });
+    };
+    NavBarComponent.prototype.getProfileLink = function () {
+        return this.currentUser ? '/profile/' + this.currentUser.uid : '';
     };
     NavBarComponent.prototype.toggleCollapse = function () {
         this.isCollapsed = !this.isCollapsed;
@@ -41,7 +48,7 @@ var NavBarComponent = (function () {
             selector: 'nav-bar',
             templateUrl: './nav-bar.component.html'
         }), 
-        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, angularfire2_1.AngularFire, router_1.Router])
+        __metadata('design:paramtypes', [authentication_service_1.AuthenticationService, user_service_1.UserService, angularfire2_1.AngularFire, router_1.Router])
     ], NavBarComponent);
     return NavBarComponent;
 }());
