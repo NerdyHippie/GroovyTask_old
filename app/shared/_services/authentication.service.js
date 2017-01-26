@@ -17,23 +17,29 @@ var logger_service_1 = require("./logger.service");
 var firebase = require('firebase');
 require('rxjs/add/operator/map');
 var AuthenticationService = (function () {
-    function AuthenticationService(af, router, usrSvc, alertService, logger) {
+    function AuthenticationService(af, router, activatedRoute, usrSvc, alertService, logger) {
         var _this = this;
         this.af = af;
         this.router = router;
+        this.activatedRoute = activatedRoute;
         this.usrSvc = usrSvc;
         this.alertService = alertService;
         this.logger = logger;
+        this.loggedIn = null;
         this.auth = af.auth;
         af.auth.subscribe(function (authData) {
             logger.log('authData in authenticationService', authData);
             if (authData) {
+                _this.loggedIn = true;
                 _this.handleAuthSuccess(authData);
             }
             else {
-                logger.log('nav to logout');
-                var returnUrl = _this.router.routerState.snapshot.url;
-                _this.router.navigate(['/logout'], { queryParams: { returnUrl: returnUrl } });
+                if (window.location.pathname !== '/emailAction') {
+                    _this.loggedIn = false;
+                    logger.log('nav to logout');
+                    var returnUrl = _this.router.routerState.snapshot.url;
+                    _this.router.navigate(['/logout'], { queryParams: { returnUrl: returnUrl } });
+                }
             }
         });
     }
@@ -71,7 +77,7 @@ var AuthenticationService = (function () {
     };
     AuthenticationService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [angularfire2_1.AngularFire, router_1.Router, user_service_1.UserService, alert_service_1.AlertService, logger_service_1.Logger])
+        __metadata('design:paramtypes', [angularfire2_1.AngularFire, router_1.Router, router_1.ActivatedRoute, user_service_1.UserService, alert_service_1.AlertService, logger_service_1.Logger])
     ], AuthenticationService);
     return AuthenticationService;
 }());

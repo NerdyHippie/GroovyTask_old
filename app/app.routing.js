@@ -31,7 +31,8 @@ var appRoutes = [
         component: reset_request_component_1.ResetRequestComponent
     }, {
         path: 'emailAction',
-        component: email_action_component_1.EmailActionComponent
+        component: email_action_component_1.EmailActionComponent,
+        pathMatch: 'prefix'
     }
 ];
 exports.AppRoutingComponents = [home_component_1.HomeComponent, calendar_component_1.CalendarComponent, login_component_1.LoginComponent, logout_component_1.LogoutComponent, register_component_1.RegisterComponent, reset_request_component_1.ResetRequestComponent, email_action_component_1.EmailActionComponent];

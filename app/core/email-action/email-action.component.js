@@ -14,18 +14,17 @@ var angularfire2_1 = require('angularfire2');
 var alert_service_1 = require("../../shared/_services/alert.service");
 var firebase = require('firebase');
 var EmailActionComponent = (function () {
-    function EmailActionComponent(af, activatedRoute, alertService) {
+    function EmailActionComponent(af, activatedRoute, alertService, router) {
         this.af = af;
         this.activatedRoute = activatedRoute;
         this.alertService = alertService;
-        this.showPasswordForm = false;
+        this.router = router;
         this.model = { password: '' };
     }
     EmailActionComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.auth = firebase.auth();
         this.activatedRoute.queryParams.subscribe(function (params) {
-            console.log(params);
             if (params['mode'])
                 _this.mode = params['mode'];
             if (params['oobCode'])
@@ -38,57 +37,30 @@ var EmailActionComponent = (function () {
     EmailActionComponent.prototype.handleAction = function () {
         switch (this.mode) {
             case 'resetPassword':
-                // Display reset password handler and UI.
-                this.handleResetPassword();
+                this.handleResetPassword(); // Display reset password handler and UI.
                 break;
             case 'recoverEmail':
-                // Display email recovery handler and UI.
-                this.handleRecoverEmail();
+                this.handleRecoverEmail(); // Display email recovery handler and UI.
                 break;
             case 'verifyEmail':
-                // Display email verification handler and UI.
-                this.handleVerifyEmail();
+                this.handleVerifyEmail(); // Display email verification handler and UI.
                 break;
             default:
         }
     };
     EmailActionComponent.prototype.handleResetPassword = function () {
         var _this = this;
-        console.log('handle ResetPassword', this.actionCode);
-        this.auth.verifyPasswordResetCode(this.actionCode).then(function (email) {
-            _this.accountEmail = email;
-            _this.showPasswordForm = true;
-        }).catch();
-        /*var accountEmail;
-        // Verify the password reset code is valid.
-        auth.verifyPasswordResetCode(actionCode).then(function(email) {
-            var accountEmail = email;
-            
-            // TODO: Show the reset screen with the user's email and ask the user for
-            // the new password.
-            
-            
-        }).catch(function(error) {
-            // Invalid or expired action code. Ask user to try to reset the password
-            // again.
-        });*/
+        this.auth.verifyPasswordResetCode(this.actionCode)
+            .then(function (email) { return _this.accountEmail = email; })
+            .catch(function (error) { return _this.alertService.error(error.message); });
     };
     EmailActionComponent.prototype.doPasswordReset = function (newPassword) {
+        var _this = this;
         // Save the new password.
         this.auth.confirmPasswordReset(this.actionCode, newPassword)
-            .then(function (resp) { return console.log('reset complete', resp); })
-            .catch(function (error) { return console.error('reset error', error); });
-        /*function(resp) {
-        // Password reset has been confirmed and new password updated.
-        
-        // TODO: Display a link back to the app, or sign-in the user directly
-        // if the page belongs to the same domain as the app:
-        // auth.signInWithEmailAndPassword(accountEmail, newPassword);
-    }*/
-        /*).catch(function(error) {
-        // Error occurred during confirmation. The code might have expired or the
-        // password is too weak.
-    });*/
+            .then(function (resp) { return _this.auth.signInWithEmailAndPassword(_this.accountEmail, newPassword)
+            .then(_this.router.navigate(['/'])); })
+            .catch(function (error) { return _this.alertService.error(error.message); });
     };
     EmailActionComponent.prototype.handleRecoverEmail = function () {
         /*var restoredEmail = null;
@@ -133,7 +105,7 @@ var EmailActionComponent = (function () {
             selector: 'email-action',
             templateUrl: 'email-action.component.html'
         }), 
-        __metadata('design:paramtypes', [angularfire2_1.AngularFire, router_1.ActivatedRoute, alert_service_1.AlertService])
+        __metadata('design:paramtypes', [angularfire2_1.AngularFire, router_1.ActivatedRoute, alert_service_1.AlertService, router_1.Router])
     ], EmailActionComponent);
     return EmailActionComponent;
 }());

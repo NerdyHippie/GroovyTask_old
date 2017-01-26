@@ -1,5 +1,5 @@
 ﻿import { Injectable } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router,ActivatedRoute } from "@angular/router";
 import { AngularFire,AngularFireAuth,AuthProviders,AuthMethods } from 'angularfire2';
 import { AlertService } from './alert.service';
 import { UserService } from './user.service';
@@ -11,10 +11,12 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class AuthenticationService {
 		auth:AngularFireAuth;  // Store the AngularFire auth in a service variable so that we can use it in components, etc.
-		
+		loggedIn:Boolean = null;
+	
 		constructor(
 			private af:AngularFire,
 			private router:Router,
+			private activatedRoute: ActivatedRoute,
 			private usrSvc:UserService,
 			private alertService:AlertService,
 			private logger:Logger
@@ -24,11 +26,15 @@ export class AuthenticationService {
 			af.auth.subscribe((authData) => {
 				logger.log('authData in authenticationService',authData);
 				if (authData) {
+					this.loggedIn = true;
 					this.handleAuthSuccess(authData);
 				} else {
-					logger.log('nav to logout');
-					let returnUrl:string = this.router.routerState.snapshot.url;
-					this.router.navigate(['/logout'], { queryParams: { returnUrl: returnUrl }});
+					if (window.location.pathname !== '/emailAction') {
+						this.loggedIn = false;
+						logger.log('nav to logout');
+						let returnUrl:string = this.router.routerState.snapshot.url;
+						this.router.navigate(['/logout'], { queryParams: { returnUrl: returnUrl }});
+					}
 				}
 			})
     };

@@ -20,20 +20,19 @@ export class EmailActionComponent implements OnInit {
 		actionCode:string;
 		apiKey:string;
 		accountEmail:string;
-		showPasswordForm:Boolean = false;
 		model:NewPasswordModel = {password:''};
 	
     constructor(
     	private af:AngularFire,
 			private activatedRoute:ActivatedRoute,
 			private alertService:AlertService,
+			private router:Router
 		) { }
 
     ngOnInit():void {
     	this.auth = firebase.auth();
     	
 			this.activatedRoute.queryParams.subscribe((params: Params) => {
-				console.log(params);
 				if (params['mode']) this.mode = params['mode'];
 				if (params['oobCode']) this.actionCode = params['oobCode'];
 				if (params['apiKey']) this.apiKey = params['apiKey'];
@@ -45,16 +44,13 @@ export class EmailActionComponent implements OnInit {
 		handleAction():void {
 			switch (this.mode) {
 				case 'resetPassword':
-					// Display reset password handler and UI.
-					this.handleResetPassword();
+					this.handleResetPassword();  // Display reset password handler and UI.
 					break;
 				case 'recoverEmail':
-					// Display email recovery handler and UI.
-					this.handleRecoverEmail();
+					this.handleRecoverEmail();  // Display email recovery handler and UI.
 					break;
 				case 'verifyEmail':
-					// Display email verification handler and UI.
-					this.handleVerifyEmail();
+					this.handleVerifyEmail();  // Display email verification handler and UI.
 					break;
 				default:
 				// Error: invalid mode.
@@ -62,43 +58,18 @@ export class EmailActionComponent implements OnInit {
 		}
 	
 		handleResetPassword() {
-			console.log('handle ResetPassword',this.actionCode);
-    	this.auth.verifyPasswordResetCode(this.actionCode).then((email:any) => {
-    		this.accountEmail = email;
-    		this.showPasswordForm = true;
-			}).catch();
-			/*var accountEmail;
-			// Verify the password reset code is valid.
-			auth.verifyPasswordResetCode(actionCode).then(function(email) {
-				var accountEmail = email;
-				
-				// TODO: Show the reset screen with the user's email and ask the user for
-				// the new password.
-				
-				
-			}).catch(function(error) {
-				// Invalid or expired action code. Ask user to try to reset the password
-				// again.
-			});*/
+    	this.auth.verifyPasswordResetCode(this.actionCode)
+				.then((email:any) => this.accountEmail = email)
+				.catch((error:any) => this.alertService.error(error.message));
 		}
 		
 		doPasswordReset(newPassword:string) {
 			// Save the new password.
 			this.auth.confirmPasswordReset(this.actionCode, newPassword)
-				.then((resp:any) => console.log('reset complete',resp))
-				.catch((error:any) => console.error('reset error',error));
-				/*function(resp) {
-				// Password reset has been confirmed and new password updated.
+				.then((resp:any) => this.auth.signInWithEmailAndPassword(this.accountEmail, newPassword)
+						.then(this.router.navigate(['/'])))
+				.catch((error:any) => this.alertService.error(error.message));
 				
-				// TODO: Display a link back to the app, or sign-in the user directly
-				// if the page belongs to the same domain as the app:
-				// auth.signInWithEmailAndPassword(accountEmail, newPassword);
-			}*/
-				
-				/*).catch(function(error) {
-				// Error occurred during confirmation. The code might have expired or the
-				// password is too weak.
-			});*/
 		}
 	
 		handleRecoverEmail() {

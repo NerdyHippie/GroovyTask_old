@@ -35,6 +35,7 @@ const appRoutes: Routes = [
     },{
         path: 'emailAction'
         ,component: EmailActionComponent
+				,pathMatch: 'prefix'
     }
 ];
 
