@@ -21,7 +21,9 @@ export class EmailActionComponent implements OnInit {
 		apiKey:string;
 		accountEmail:string;
 		model:NewPasswordModel = {password:''};
-	
+		urlParams: any;
+		
+		
     constructor(
     	private af:AngularFire,
 			private activatedRoute:ActivatedRoute,
@@ -33,6 +35,7 @@ export class EmailActionComponent implements OnInit {
     	this.auth = firebase.auth();
     	
 			this.activatedRoute.queryParams.subscribe((params: Params) => {
+				this.urlParams = params;
 				if (params['mode']) this.mode = params['mode'];
 				if (params['oobCode']) this.actionCode = params['oobCode'];
 				if (params['apiKey']) this.apiKey = params['apiKey'];

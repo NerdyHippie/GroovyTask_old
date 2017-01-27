@@ -25,6 +25,7 @@ var EmailActionComponent = (function () {
         var _this = this;
         this.auth = firebase.auth();
         this.activatedRoute.queryParams.subscribe(function (params) {
+            _this.urlParams = params;
             if (params['mode'])
                 _this.mode = params['mode'];
             if (params['oobCode'])

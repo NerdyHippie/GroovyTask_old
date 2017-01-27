@@ -1,4 +1,4 @@
-mode: {{mode}}
+<!--mode: {{mode}}-->
 
 
 <div [ngSwitch]="mode">
@@ -35,4 +35,9 @@ mode: {{mode}}
 		<h2>Verify your Email Address</h2>
 		
 	</div>
+	<div *ngSwitchDefault>
+		<pre>{{urlParams | json}}</pre>
+	</div>
 </div>
+
+
