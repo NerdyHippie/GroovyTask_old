@@ -3,6 +3,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { FirebaseObjectObservable } from 'angularfire2';
 import { User } from '../../shared/_models/user.model';
 import { UserService } from '../../shared/_services/user.service';
+import {Subscription} from "rxjs";
 
 @Component({
     moduleId: module.id,
@@ -13,7 +14,7 @@ export class UserDetailComponent implements OnInit {
 	user: User;
 	id: String;
 	user$: FirebaseObjectObservable<any>;
-	routeParams$: any;
+	routeParams$: Subscription;
 	
 	
 	constructor(public usrSvc:UserService, public activatedRoute:ActivatedRoute, public router:Router) {	}
